@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Program.Properties {
+namespace TradingCompany.Program.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -59,13 +59,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\TradingCompany.BusinessLogic.csproj">
       <Project>{4a022871-1d98-4089-8ce6-3ba9163993c7}</Project>
-      <Name>BusinessLogic</Name>
+      <Name>TradingCompany.BusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\TradingCompany.DataAccess.csproj">
       <Project>{ba99eecb-c060-429f-85b1-040cc208cd53}</Project>
-      <Name>DataAccess</Name>
+      <Name>TradingCompany.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

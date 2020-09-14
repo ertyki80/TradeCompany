@@ -8,8 +8,8 @@
     <ProjectGuid>{BA99EECB-C060-429F-85B1-040CC208CD53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataAccess</RootNamespace>
-    <AssemblyName>DataAccess</AssemblyName>
+    <RootNamespace>TradingCompany.DataAccess</RootNamespace>
+    <AssemblyName>TradingCompany.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
