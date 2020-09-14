@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1259
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCompany.DataAccess", "DataAccess\TradingCompany.DataAccess.csproj", "{BA99EECB-C060-429F-85B1-040CC208CD53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCompany.DataAccess", "TradingCompany.DataAccess\TradingCompany.DataAccess.csproj", "{BA99EECB-C060-429F-85B1-040CC208CD53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCompany.BusinessLogic", "BusinessLogic\TradingCompany.BusinessLogic.csproj", "{4A022871-1D98-4089-8CE6-3BA9163993C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCompany.BusinessLogic", "TradingCompany.BusinessLogic\TradingCompany.BusinessLogic.csproj", "{4A022871-1D98-4089-8CE6-3BA9163993C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCompany.Program", "WindowsFormsApp1\TradingCompany.Program.csproj", "{3944D989-3E1A-4594-B6F1-D158CF1D0C22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCompany.App", "TradingCompany.App\TradingCompany.App.csproj", "{1C9BF538-367B-431A-8EBB-76C2494F1C12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{4A022871-1D98-4089-8CE6-3BA9163993C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A022871-1D98-4089-8CE6-3BA9163993C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A022871-1D98-4089-8CE6-3BA9163993C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3944D989-3E1A-4594-B6F1-D158CF1D0C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3944D989-3E1A-4594-B6F1-D158CF1D0C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3944D989-3E1A-4594-B6F1-D158CF1D0C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3944D989-3E1A-4594-B6F1-D158CF1D0C22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9BF538-367B-431A-8EBB-76C2494F1C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9BF538-367B-431A-8EBB-76C2494F1C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9BF538-367B-431A-8EBB-76C2494F1C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9BF538-367B-431A-8EBB-76C2494F1C12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

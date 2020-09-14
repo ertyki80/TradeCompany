@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace TradingCompany.App
 {
     partial class Form1
     {
