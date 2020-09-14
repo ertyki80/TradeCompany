@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E9EACFC8-A45F-46D9-9828-96F0569120E6}</ProjectGuid>
+    <ProjectGuid>{BA99EECB-C060-429F-85B1-040CC208CD53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PresentationLayer</RootNamespace>
-    <AssemblyName>PresentationLayer</AssemblyName>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -51,22 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Context\DataContext.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Logs.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
-      <Project>{4a022871-1d98-4089-8ce6-3ba9163993c7}</Project>
-      <Name>BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{ba99eecb-c060-429f-85b1-040cc208cd53}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
