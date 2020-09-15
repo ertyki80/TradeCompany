@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Interfaces
+namespace TradingCompany.BusinessLogic.Interfaces
 {
     internal interface ILogsService
     {

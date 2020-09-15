@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Interfaces
+namespace TradingCompany.BusinessLogic.Interfaces
 {
     interface IRoleService
     {
@@ -14,6 +10,7 @@ namespace BusinessLogic.Interfaces
         void Create(Role role);
         void Update(int id, Role role);
         void Delete(int id);
+        
 
     }
 }

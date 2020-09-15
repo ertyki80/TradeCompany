@@ -1,5 +1,5 @@
-﻿using BusinessLogic.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
 

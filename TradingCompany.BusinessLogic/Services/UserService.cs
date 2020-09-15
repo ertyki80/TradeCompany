@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using BusinessLogic.Interfaces;
 using TradingCompany.BusinessLogic.Encription;
+using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
 
