@@ -1,12 +1,9 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using BusinessLogic.Interfaces;
+using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Services
+namespace TradingCompany.BusinessLogic.Services
 {
     public class RoleService : IRoleService
     {
@@ -43,11 +40,7 @@ namespace BusinessLogic.Services
         public Role GetRole(int id)
         {
             var role = _context.Roles.Find(id);
-            if (role != null)
-            {
-                return role;
-            }
-            return null;
+            return role ?? null;
         }
 
         public void Update(int id, Role role)

@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
+using TradingCompany.DataAccess.Models;
 
-namespace DataAccess
+namespace TradingCompany.DataAccess.Context
 {
     public class DataContext:DbContext
     {

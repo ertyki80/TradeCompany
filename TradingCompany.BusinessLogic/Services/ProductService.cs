@@ -1,12 +1,10 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BusinessLogic.Interfaces;
+using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Services
+namespace TradingCompany.BusinessLogic.Services
 {
     public class ProductService :IProductService
     {
@@ -30,7 +28,7 @@ namespace BusinessLogic.Services
             if (product == null)
             {
             }
-            _context.Products.Remove(product);
+            _context.Products.Remove(product ?? throw new InvalidOperationException("product is null"));
 
             _context.SaveChanges();
         }
@@ -43,11 +41,7 @@ namespace BusinessLogic.Services
         public Product GetProduct(int id)
         {
             var product = _context.Products.Find(id);
-            if (product != null)
-            {
-                return product;
-            }
-            return null;
+            return product ?? null;
         }
 
         public void Update(int id, Product product)

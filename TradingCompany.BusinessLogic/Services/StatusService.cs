@@ -1,10 +1,12 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess;
+﻿using System;
 using System.Collections.Generic;
+using BusinessLogic.Interfaces;
+using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Services
+namespace TradingCompany.BusinessLogic.Services
 {
-    class StatusService : IStatusService
+    internal class StatusService : IStatusService
     {
         private readonly DataContext _context;
 
@@ -26,7 +28,7 @@ namespace BusinessLogic.Services
             if (status == null)
             {
             }
-            _context.Status.Remove(status);
+            _context.Status.Remove(status ?? throw new InvalidOperationException("status is null"));
 
             _context.SaveChanges();
         }
@@ -39,11 +41,7 @@ namespace BusinessLogic.Services
         public Status GetStatus(int id)
         {
             var status = _context.Status.Find(id);
-            if (status != null)
-            {
-                return status;
-            }
-            return null;
+            return status ?? null;
         }
 
         public void Update(int id, Status status)

@@ -1,13 +1,10 @@
-﻿using BusinessLogic.Encription;
+﻿using System.Collections.Generic;
 using BusinessLogic.Interfaces;
-using DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TradingCompany.BusinessLogic.Encription;
+using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Services
+namespace TradingCompany.BusinessLogic.Services
 {
     public class UserService : IUserService
     {
@@ -19,8 +16,8 @@ namespace BusinessLogic.Services
         }
         public void Create(User user)
         {
-            EncryptionHASH encryptionHASH = new EncryptionHASH();
-            user.Password = encryptionHASH.EncodePassword(user.Password);
+            var encryptionHash = new EncryptionHash();
+            user.Password = encryptionHash.EncodePassword(user.Password);
             _context.Users.Add(user);
             _context.SaveChanges();
         }
@@ -31,10 +28,11 @@ namespace BusinessLogic.Services
         {
             var user = _context.Users.Find(id);
 
-            if (user == null)
+            if (user != null)
             {
+
+                _context.Users.Remove(user);
             }
-            _context.Users.Remove(user);
 
             _context.SaveChanges();
 
@@ -48,12 +46,7 @@ namespace BusinessLogic.Services
         public User GetUser(int id)
         {
             var user = _context.Users.Find(id);
-            if (user != null)
-            {
-                return user;
-            }
-            return null;
-
+            return user ?? null;
         }
 
 

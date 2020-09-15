@@ -1,14 +1,11 @@
 ﻿using BusinessLogic.Interfaces;
-using DataAccess;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Services
+namespace TradingCompany.BusinessLogic.Services
 {
-    public class CategoryService :IICategoryService
+    public class CategoryService :ICategoryService
     {
         private readonly DataContext _context;
 
@@ -43,11 +40,7 @@ namespace BusinessLogic.Services
         public Category GetCategory(int id)
         {
             var categories = _context.Categories.Find(id);
-            if (categories != null)
-            {
-                return categories;
-            }
-            return null;
+            return categories ?? null;
         }
 
         public void Update(int id, Category category)

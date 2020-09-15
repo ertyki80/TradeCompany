@@ -1,12 +1,9 @@
 ﻿using BusinessLogic.Interfaces;
-using DataAccess;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Services
+namespace TradingCompany.BusinessLogic.Services
 {
     public class LogsService:ILogsService
     {
@@ -27,10 +24,10 @@ namespace BusinessLogic.Services
         {
             var log = _context.Logs.Find(id);
 
-            if (log == null)
+            if (log != null)
             {
+                _context.Logs.Remove(log);
             }
-            _context.Logs.Remove(log);
 
             _context.SaveChanges();
         }
@@ -43,20 +40,16 @@ namespace BusinessLogic.Services
         public Logs GetLogs(int id)
         {
             var log = _context.Logs.Find(id);
-            if (log != null)
-            {
-                return log;
-            }
-            return null;
+            return log ?? null;
         }
 
         public void Update(int id, Logs logs)
         {
-            var oldlog = _context.Logs.Find(id);
-            if (oldlog != null && logs != null)
+            var oldLogs = _context.Logs.Find(id);
+            if (oldLogs != null && logs != null)
             {
 
-                _context.Logs.Remove(oldlog);
+                _context.Logs.Remove(oldLogs);
                 _context.Logs.Add(logs);
             }
 

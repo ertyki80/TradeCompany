@@ -1,14 +1,12 @@
-﻿using BusinessLogic.Interfaces;
-using DataAccess;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BusinessLogic.Interfaces;
+using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Models;
 
-namespace BusinessLogic.Services
+namespace TradingCompany.BusinessLogic.Services
 {
-    class TransactionService : ITransactionService
+    public class TransactionService : ITransactionService
     {
 
         private readonly DataContext _context;
@@ -31,7 +29,7 @@ namespace BusinessLogic.Services
             if (transaction == null)
             {
             }
-            _context.Transactions.Remove(transaction);
+            _context.Transactions.Remove(transaction ?? throw new InvalidOperationException("transaction is null"));
 
             _context.SaveChanges();
         }
@@ -44,11 +42,7 @@ namespace BusinessLogic.Services
         public Transaction GetTransaction(int id)
         {
             var transaction = _context.Transactions.Find(id);
-            if (transaction != null)
-            {
-                return transaction;
-            }
-            return null;
+            return transaction ?? null;
         }
 
         public void Update(int id, Transaction transaction)

@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Encription\EncryptionHASH.cs" />
-    <Compile Include="Helper\AutorizeLogic.cs" />
+    <Compile Include="Helpers\AutorizeLogic.cs" />
     <Compile Include="Interfaces\IICategoryService.cs" />
     <Compile Include="Interfaces\ILogsService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
