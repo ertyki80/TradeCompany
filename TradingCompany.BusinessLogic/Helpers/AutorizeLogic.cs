@@ -21,14 +21,10 @@ namespace TradingCompany.BusinessLogic.Helpers
                 var encryptionHash = new EncryptionHash();
                 var passwordEncoding = encryptionHash.EncodePassword(password);
                 var user = db.Users.FirstOrDefault(b => b.Login == login && b.Password == passwordEncoding);
-
                 UserRecognition = user != null;
                 _currentUser = user;
                 return UserRecognition;
             }
-
-
-
         }
 
         public User GetUser()
@@ -49,7 +45,8 @@ namespace TradingCompany.BusinessLogic.Helpers
                     FirstName = firstName,
                     LastName = lastName,
                     Password = password,
-                    Role = role
+                    Role = role,
+                    TimeOfCreating = DateTime.Now
                 };
 
                 userService.Create(newUser);

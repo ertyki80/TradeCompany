@@ -14,17 +14,17 @@ namespace TradingCompany.App
             InitializeComponent();
         }
 
-        private void LoginForm_Load(object sender, System.EventArgs e)
+        private void LoginForm_Load(object sender, EventArgs e)
         {
-            textBox1.Text = "Login";
+            textBox1.Text = @"Login";
             textBox1.ForeColor = Color.Gray;
-            textBox2.Text = "Password";
+            textBox2.Text = @"Password";
             textBox2.ForeColor = Color.Gray;
         }
 
         private void textBox1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "Login" || textBox2.Text == "Password")
+            if (textBox1.Text == @"Login" || textBox2.Text == @"Password")
             {
                 textBox1.Text = "";
                 
@@ -44,14 +44,13 @@ namespace TradingCompany.App
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AutorizeLogic authorizeLogic = new AutorizeLogic();
+            var authorizeLogic = new AutorizeLogic();
             var userExist = authorizeLogic.Login(textBox1.Text, textBox2.Text);
-            if (userExist)
-            {
-                _currentUser = authorizeLogic.GetUser();
+            if (!userExist) return;
+            _currentUser = authorizeLogic.GetUser();
+            Console.WriteLine(@"Login successful");
+            Console.WriteLine(@"{0} {1} {2}", _currentUser.FirstName, _currentUser.LastName, _currentUser.TimeOfCreating);
 
-            }
-            
         }
     }
 }
