@@ -24,20 +24,17 @@ namespace TradingCompany.App
 
         private void textBox1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == @"Login" || textBox2.Text == @"Password")
+            if (textBox1.Text == @"Login" )
             {
                 textBox1.Text = "";
                 
-                textBox2.Text = "";
             }
         }
 
         private void textBox2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "Login" || textBox2.Text == "Password")
+            if ( textBox2.Text == @"Password")
             {
-                textBox1.Text = "";
-
                 textBox2.Text = "";
             }
         }

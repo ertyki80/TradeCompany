@@ -32,10 +32,11 @@ namespace TradingCompany.BusinessLogic.Helpers
             return _currentUser;
 
         }
-        public void Registration(string login, string password, Role role, string firstName, string lastName, DateTime dateOfBirth, string email)
+        public void Registration(string login, string password, string role, string firstName, string lastName, DateTime dateOfBirth, string email)
         {
             using (var db = new DataContext())
             {
+                Role nRole = new Role(){Name=role};
                 var userService = new UserService(db);
                 var newUser = new User()
                 {
@@ -45,7 +46,7 @@ namespace TradingCompany.BusinessLogic.Helpers
                     FirstName = firstName,
                     LastName = lastName,
                     Password = password,
-                    Role = role,
+                    Role = nRole,
                     TimeOfCreating = DateTime.Now
                 };
 
