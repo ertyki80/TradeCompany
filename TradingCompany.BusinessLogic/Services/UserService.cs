@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TradingCompany.BusinessLogic.Encription;
 using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
@@ -9,9 +10,11 @@ namespace TradingCompany.BusinessLogic.Services
     public class UserService : IUserService
     {
         private readonly DataContext _context;
+        private readonly LogsService logsService;
 
         public UserService(DataContext context)
         {
+            logsService = new LogsService(context);
             _context = context;
         }
         public void Create(User user)
@@ -19,6 +22,8 @@ namespace TradingCompany.BusinessLogic.Services
             var encryptionHash = new EncryptionHash();
             user.Password = encryptionHash.EncodePassword(user.Password);
             _context.Users.Add(user);
+            Logs logs = new Logs() { Name = "Create a new User", Time = DateTime.Now };
+            logsService.Create(logs);
             _context.SaveChanges();
         }
 
@@ -33,7 +38,8 @@ namespace TradingCompany.BusinessLogic.Services
 
                 _context.Users.Remove(user);
             }
-
+            Logs logs = new Logs() { Name = "Delete a User", Time = DateTime.Now };
+            logsService.Create(logs);
             _context.SaveChanges();
 
         }
@@ -59,7 +65,8 @@ namespace TradingCompany.BusinessLogic.Services
                 _context.Users.Remove(oldUser);
                 _context.Users.Add(user);
             }
-
+            Logs logs = new Logs() { Name = "Update a User", Time = DateTime.Now };
+            logsService.Create(logs);
             _context.SaveChanges();
         }
     }

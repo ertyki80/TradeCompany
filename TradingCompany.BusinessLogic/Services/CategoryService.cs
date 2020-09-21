@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
@@ -8,15 +9,19 @@ namespace TradingCompany.BusinessLogic.Services
     public class CategoryService :ICategoryService
     {
         private readonly DataContext _context;
+        private LogsService logsService;
 
         public CategoryService(DataContext context)
         {
-            _context = context;
+          logsService = new LogsService(context);
+        _context = context;
         }
         public void Create(Category category)
         {
             _context.Categories.Add(category);
             _context.SaveChanges();
+            Logs logs =new Logs(){Name="Create a new Category",Time = DateTime.Now};
+            logsService.Create(logs);
         }
 
         public void Delete(int id)
@@ -29,6 +34,8 @@ namespace TradingCompany.BusinessLogic.Services
             _context.Categories.Remove(category);
 
             _context.SaveChanges();
+            Logs logs = new Logs() { Name = "Delete a  Category: ID= "+id.ToString(), Time = DateTime.Now };
+            logsService.Create(logs);
 
         }
 
@@ -54,6 +61,8 @@ namespace TradingCompany.BusinessLogic.Services
             }
 
             _context.SaveChanges();
+            Logs logs = new Logs() { Name = "Update a  Category: ID= " + id.ToString(), Time = DateTime.Now };
+            logsService.Create(logs);
         }
     }
 }

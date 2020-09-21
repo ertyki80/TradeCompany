@@ -8,16 +8,21 @@ namespace TradingCompany.BusinessLogic.Services
 {
     public class ProductService :IProductService
     {
+        private LogsService logsService;
         private readonly DataContext _context;
 
         public ProductService(DataContext context)
         {
+
+            logsService = new LogsService(context);
             _context = context;
         }
 
         public void Create(Product product)
         {
             _context.Products.Add(product);
+            Logs logs = new Logs() { Name = "Create a new Product", Time = DateTime.Now };
+            logsService.Create(logs);
             _context.SaveChanges();
         }
 
@@ -29,7 +34,8 @@ namespace TradingCompany.BusinessLogic.Services
             {
             }
             _context.Products.Remove(product ?? throw new InvalidOperationException("product is null"));
-
+            Logs logs = new Logs() { Name = "Delete a  Product", Time = DateTime.Now };
+            logsService.Create(logs);
             _context.SaveChanges();
         }
 
@@ -53,6 +59,8 @@ namespace TradingCompany.BusinessLogic.Services
                 _context.Products.Remove(oldProduct);
                 _context.Products.Add(product);
             }
+            Logs logs = new Logs() { Name = "Update a  Product", Time = DateTime.Now };
+            logsService.Create(logs);
 
             _context.SaveChanges();
         }

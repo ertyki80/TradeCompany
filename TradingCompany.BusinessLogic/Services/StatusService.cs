@@ -6,7 +6,7 @@ using TradingCompany.DataAccess.Models;
 
 namespace TradingCompany.BusinessLogic.Services
 {
-    internal class StatusService : IStatusService
+    public class StatusService : IStatusService
     {
         private readonly DataContext _context;
 

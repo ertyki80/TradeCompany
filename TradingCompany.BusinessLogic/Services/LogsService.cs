@@ -5,6 +5,7 @@ using TradingCompany.DataAccess.Models;
 
 namespace TradingCompany.BusinessLogic.Services
 {
+
     public class LogsService:ILogsService
     {
         private readonly DataContext _context;

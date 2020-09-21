@@ -10,8 +10,7 @@ namespace TradingCompany.App
         [STAThread]
         public static void Main()
         {
-
-            AutorizeLogic autorizeLogic = new AutorizeLogic();
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new RegistrationForm());

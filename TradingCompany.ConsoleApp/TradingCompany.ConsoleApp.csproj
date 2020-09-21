@@ -5,18 +5,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A022871-1D98-4089-8CE6-3BA9163993C7}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TradingCompany.BusinessLogic</RootNamespace>
-    <AssemblyName>TradingCompany.BusinessLogic</AssemblyName>
+    <ProjectGuid>{B93C044A-6E40-4F44-AB29-A45176682DDD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TradingCompany.ConsoleApp</RootNamespace>
+    <AssemblyName>TradingCompany.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,37 +53,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Encription\EncryptionHASH.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Helpers\AutorizeLogic.cs" />
-    <Compile Include="Interfaces\IICategoryService.cs" />
-    <Compile Include="Interfaces\ILogsService.cs" />
-    <Compile Include="Interfaces\IProductService.cs" />
-    <Compile Include="Interfaces\IRoleService.cs" />
-    <Compile Include="Interfaces\IStatusService.cs" />
-    <Compile Include="Interfaces\ITransactionService.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\LogsService.cs" />
-    <Compile Include="Services\ProductService.cs" />
-    <Compile Include="Services\RoleService.cs" />
-    <Compile Include="Services\StatusService.cs" />
-    <Compile Include="Services\TransactionService.cs" />
-    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TradingCompany.BusinessLogic\TradingCompany.BusinessLogic.csproj">
+      <Project>{4a022871-1d98-4089-8ce6-3ba9163993c7}</Project>
+      <Name>TradingCompany.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradingCompany.DataAccess\TradingCompany.DataAccess.csproj">
       <Project>{ba99eecb-c060-429f-85b1-040cc208cd53}</Project>
       <Name>TradingCompany.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
