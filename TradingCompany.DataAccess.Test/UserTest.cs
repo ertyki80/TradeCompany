@@ -19,7 +19,7 @@ namespace TradingCompany.DataAccess.Test
     [TestClass]
     public class UserTest: ServicedComponent
     {
-        private readonly DataContext _context = new DataContext();
+        public readonly DataContext _context = new DataContext();
 
 
         public UserTest()

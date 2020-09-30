@@ -62,7 +62,7 @@ namespace TradingCompany.App
 
         private void textBox3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == @"First Name")
+            if (textBox3.Text == @"First Name")
             {
                 textBox1.Text = "";
 
@@ -83,7 +83,7 @@ namespace TradingCompany.App
         {
             if (textBox1.Text == @"Email")
             {
-                textBox1.Text = "";
+                textBox5.Text = "";
 
             }
         }
@@ -93,6 +93,11 @@ namespace TradingCompany.App
             var authorizeLogic = new AutorizeLogic();
             authorizeLogic.Registration(textBox1.Text,textBox2.Text,checkedListBox1.CheckedItems.ToString(),textBox3.Text,textBox4.Text,dateTimePicker1.Value,textBox5.Text);
             Console.WriteLine(@"Registration successful");
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

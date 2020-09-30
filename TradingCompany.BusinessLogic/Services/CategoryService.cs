@@ -9,11 +9,11 @@ namespace TradingCompany.BusinessLogic.Services
     public class CategoryService :ICategoryService
     {
         private readonly DataContext _context;
-        private LogsService logsService;
+        private readonly LogsService _logsService;
 
         public CategoryService(DataContext context)
         {
-          logsService = new LogsService(context);
+          _logsService = new LogsService(context);
         _context = context;
         }
         public void Create(Category category)
@@ -21,7 +21,7 @@ namespace TradingCompany.BusinessLogic.Services
             _context.Categories.Add(category);
             _context.SaveChanges();
             Logs logs =new Logs(){Name="Create a new Category",Time = DateTime.Now};
-            logsService.Create(logs);
+            _logsService.Create(logs);
         }
 
         public void Delete(int id)
@@ -35,7 +35,7 @@ namespace TradingCompany.BusinessLogic.Services
 
             _context.SaveChanges();
             Logs logs = new Logs() { Name = "Delete a  Category: ID= "+id.ToString(), Time = DateTime.Now };
-            logsService.Create(logs);
+            _logsService.Create(logs);
 
         }
 
@@ -62,7 +62,7 @@ namespace TradingCompany.BusinessLogic.Services
 
             _context.SaveChanges();
             Logs logs = new Logs() { Name = "Update a  Category: ID= " + id.ToString(), Time = DateTime.Now };
-            logsService.Create(logs);
+            _logsService.Create(logs);
         }
     }
 }

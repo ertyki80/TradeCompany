@@ -47,6 +47,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>TD.DA.T.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Altairis.Samples.Data.Northwind.EntityFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Altairis.Samples.Data.Northwind.EntityFramework.1.0.2\lib\net45\Altairis.Samples.Data.Northwind.EntityFramework.dll</HintPath>
