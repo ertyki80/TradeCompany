@@ -20,8 +20,8 @@ namespace TradingCompany.BusinessLogic.Extensions
         }
         public string ToString(Product product)
         {
-            string str;
-            str = string.Format("{0}.{1} {2} {3} {4}", product.Id, product.Name, product.Category.Name, product.CountInStock, product.Description);
+            string str="";
+            str = string.Format("{0}.{1} {2} {3}", product.Name, product.CountInStock, product.Description,product.TimeOfAdd);
             return str;
 
         }

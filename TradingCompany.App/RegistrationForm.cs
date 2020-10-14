@@ -15,6 +15,8 @@ namespace TradingCompany.App
 {
     public partial class RegistrationForm : MaterialForm
     {
+
+        private User _currenteUser;
         public RegistrationForm()
         {
             InitializeComponent();
@@ -92,7 +94,10 @@ namespace TradingCompany.App
         {
             var authorizeLogic = new AutorizeLogic();
             authorizeLogic.Registration(textBox1.Text,textBox2.Text,checkedListBox1.CheckedItems.ToString(),textBox3.Text,textBox4.Text,dateTimePicker1.Value,textBox5.Text);
+            _currenteUser = new User();
+            _currenteUser = authorizeLogic.GetUser();
             Console.WriteLine(@"Registration successful");
+
 
         }
 
@@ -100,6 +105,12 @@ namespace TradingCompany.App
         {
 
         }
+
+        public User GetUser()
+        {
+            return _currenteUser;
+        }
+
     }
     
 }

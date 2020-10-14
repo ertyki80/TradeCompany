@@ -45,8 +45,17 @@ namespace TradingCompany.App
             var userExist = authorizeLogic.Login(textBox1.Text, textBox2.Text);
             if (!userExist) return;
             _currentUser = authorizeLogic.GetUser();
-            Console.WriteLine(@"Login successful");
-            Console.WriteLine(@"{0} {1} {2}", _currentUser.FirstName, _currentUser.LastName, _currentUser.TimeOfCreating);
+            if (userExist != false)
+            {
+                Console.WriteLine(@"Login successful");
+                Console.WriteLine(@"{0} {1} {2}", _currentUser.FirstName, _currentUser.LastName,
+                    _currentUser.TimeOfCreating);
+            }
+        }
+
+        public User GetUser()
+        {
+            return _currentUser;
 
         }
     }

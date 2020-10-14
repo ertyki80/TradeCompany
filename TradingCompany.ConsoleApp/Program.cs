@@ -157,6 +157,7 @@ namespace TradingCompany.ConsoleApp
                     Product product = new Product(){Category = category_,CountInStock = countOfStock,Description = description,Name=name,Price = price,TimeOfAdd = TimeofAdd};
                    
                     productService.Create(product);
+
                      return true;
                 case "2":
                     Console.Clear();
@@ -165,10 +166,10 @@ namespace TradingCompany.ConsoleApp
                     Extensions productExtension = new Extensions();
                     foreach (var u in products)
                     {
-                        Console.WriteLine(productExtension.ToString(u));
+                            Console.WriteLine(productExtension.ToString(u));
                     }
-                    return true;
                     Console.WriteLine();
+                    return true;
 
                 case "3":
                     Console.Clear();

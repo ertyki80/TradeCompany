@@ -38,8 +38,13 @@ namespace TradingCompany.BusinessLogic.Helpers
             {
                 Role nRole = new Role(){Name=role};
                 var userService = new UserService(db);
+                if (login.Length > 12 && password.Length > 14 && firstName.Length > 12 && lastName.Length > 12)
+                {
+                    return;
+                }
                 var newUser = new User()
                 {
+                    
                     Login = login,
                     DateOfBirth = dateOfBirth,
                     Email = email,
