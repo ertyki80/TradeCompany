@@ -66,7 +66,7 @@ namespace TradingCompany.App
         {
             if (textBox3.Text == @"First Name")
             {
-                textBox1.Text = "";
+                textBox3.Text = "";
 
             }
 
@@ -74,16 +74,16 @@ namespace TradingCompany.App
 
         private void textBox4_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == @"Last Name")
+            if (textBox4.Text == @"Last Name")
             {
-                textBox1.Text = "";
+                textBox4.Text = "";
 
             }
         }
 
         private void textBox5_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == @"Email")
+            if (textBox5.Text == @"Email")
             {
                 textBox5.Text = "";
 
@@ -97,7 +97,8 @@ namespace TradingCompany.App
             _currenteUser = new User();
             _currenteUser = authorizeLogic.GetUser();
             Console.WriteLine(@"Registration successful");
-
+            this.Close();
+            
 
         }
 

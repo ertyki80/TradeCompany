@@ -19,6 +19,10 @@ namespace TradingCompany.App
         private TransactionService _transactionService;
         private StatusService _statusService;
         private LogsService _logsService;
+        //-------------
+
+        public string SearchString = "";
+
         public Catalog(User currentUser)
         {
             _currentUser = currentUser;
@@ -27,21 +31,36 @@ namespace TradingCompany.App
 
         private new void Update()
         {
-            dataGridView1.Rows.Clear();
             var dataContext = new DataContext();
 
             _productService = new ProductService(dataContext);
             _transactionService = new TransactionService(dataContext);
             _statusService = new StatusService(dataContext);
             _logsService = new LogsService(dataContext);
-            _products = _productService.GetAllProducts();
 
-            foreach (var p in _products)
+            if (SearchString == "")
             {
-                dataGridView1.Rows.Add(p.Id, p.Name, p.Price, p.CountInStock, p.TimeOfAdd);
-            }
+                dataGridView1.Rows.Clear();
+                _products = _productService.GetAllProducts();
 
+                foreach (var p in _products)
+                {
+                    dataGridView1.Rows.Add(p.Id, p.Name, p.Price, p.CountInStock, p.TimeOfAdd);
+                }
+            }
+            else
+            {
+                dataGridView1.Rows.Clear();
+                _products = _productService.GetAllProducts();
+
+                foreach (var p in _products.Where(p => p.Name.Contains(SearchString)))
+                {
+                    dataGridView1.Rows.Add(p.Id, p.Name, p.Price, p.CountInStock, p.TimeOfAdd);
+                }
+
+            }
         }
+
         private void Catalog_Load(object sender, EventArgs e)
         {
             Update();
@@ -54,6 +73,7 @@ namespace TradingCompany.App
         {
             return _buyList;
         }
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -73,17 +93,19 @@ namespace TradingCompany.App
                 var id =selectedRow.Cells["Column5"].Value.ToString();
                 var selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
                 selectedProduct.CountInStock--;
-
                 _productService.Update(Convert.ToInt32(id), selectedProduct);
-                _transactionService.Create(new Transaction()
+
+                var transaction = new Transaction()
                 {
                     Product = selectedProduct,
                     Status = _statusService.GetStatus(4),
                     Time = DateTime.Now,
                     TimeOfChange = DateTime.Now,
-                    User = _currentUser,
-                });
-                _logsService.Create(new Logs(){Name = "Buy a new product with ID = "+ id + "." ,Time = DateTime.Now });
+                    User = _currentUser
+                };
+                _transactionService.Create(transaction);
+
+                _logsService.Create(new Logs(){Name = "Buy a new product with ID = "+ id + "." ,Time = System.DateTime.Now });
                 _buyList.Add(selectedProduct);
                 Update();
 

@@ -8,7 +8,7 @@ namespace TradingCompany.BusinessLogic.Services
 {
     public class TransactionService : ITransactionService
     {
-
+        private int id = 5;
         private readonly DataContext _context;
         private LogsService logsService;
 
@@ -23,7 +23,7 @@ namespace TradingCompany.BusinessLogic.Services
         {
             _context.Transactions.Add(transaction);
 
-            Logs logs = new Logs() { Name = "Create a new Transaction", Time = DateTime.Now };
+            var logs = new Logs() { Name = "Create a new Transaction", Time = System.DateTime.Now };
             logsService.Create(logs);
             _context.SaveChanges();
         }
@@ -37,7 +37,7 @@ namespace TradingCompany.BusinessLogic.Services
             }
             _context.Transactions.Remove(transaction ?? throw new InvalidOperationException("transaction is null"));
 
-            Logs logs = new Logs() { Name = "Delete a Category", Time = DateTime.Now };
+            Logs logs = new Logs() { Name = "Delete a Category", Time = System.DateTime.Now };
             logsService.Create(logs);
             _context.SaveChanges();
         }

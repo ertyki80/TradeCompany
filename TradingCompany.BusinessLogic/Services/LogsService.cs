@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
@@ -17,7 +18,7 @@ namespace TradingCompany.BusinessLogic.Services
 
         public void Create(Logs logs)
         {
-            _context.Logs.Add(logs);
+            _context.Logs.AddOrUpdate(logs);
             _context.SaveChanges();
         }
 

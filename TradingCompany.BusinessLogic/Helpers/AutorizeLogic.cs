@@ -54,7 +54,7 @@ namespace TradingCompany.BusinessLogic.Helpers
                     Role = nRole,
                     TimeOfCreating = DateTime.Now
                 };
-
+                _currentUser = newUser;
                 userService.Create(newUser);
             }
 
