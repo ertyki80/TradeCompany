@@ -14,17 +14,7 @@ namespace TradingCompany.App
             Application.EnableVisualStyles(); 
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-            //Application.Run(new Catalog(new User()
-            //{
-            //    DateOfBirth = DateTime.Now,
-            //    Email = "aaaa",
-            //    FirstName = " aaaaa",
-            //    LastName = "vvvvv",
-            //    Login = "edaa",
-            //    Password = "afagvasd",
-            //    Role = new Role(){Name = "afadsv"},
-            //    TimeOfCreating = DateTime.Now
-            //}));
+            
 
         }
     }

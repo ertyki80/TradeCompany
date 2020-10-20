@@ -5,55 +5,56 @@ using System.Text;
 using System.Threading.Tasks;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
+using TradingCompanyDataTransfer;
 
 namespace TradingCompany.BusinessLogic.Extensions
 {
     public class Extensions
     {
         
-        public  string ToString(User user)
+        public  string ToString(UserDTO user)
         {
             string str;
             str = string.Format("{0}.{1} {2} {3} {4}", user.Id, user.Login, user.FirstName, user.LastName, user.TimeOfCreating);
             return str;
             
         }
-        public string ToString(Product product)
+        public string ToString(ProductDTO product)
         {
             string str="";
             str = string.Format("{0}.{1} {2} {3}", product.Name, product.CountInStock, product.Description,product.TimeOfAdd);
             return str;
 
         }
-        public string ToString(Category category)
+        public string ToString(CategoryDTO category)
         {
             string str;
             str = string.Format("{0}. {1}", category.Id, category.Name);
             return str;
 
         }
-        public string ToString(Logs logs)
+        public string ToString(LogsDTO logs)
         {
             string str;
             str = string.Format("{0}. {1}", logs.Id, logs.Name);
             return str;
 
         }
-        public string ToString(Role role)
+        public string ToString(RoleDTO role)
         {
             string str;
             str = string.Format("{0}. {1}", role.Id, role.Name);
             return str;
 
         }
-        public string ToString(Transaction transaction)
+        public string ToString(TransactionDTO transaction)
         {
             string str;
             str = string.Format("{0}. {1} {2} {3} {4} {5}", transaction.Id, transaction.Product.Name,transaction.Product.Price,transaction.User.FirstName,transaction.Status.Name,transaction.Time);
             return str;
 
         }
-        public string ToString(Status status)
+        public string ToString(StatusDTO status)
         {
             string str;
             str = string.Format("{0}. {1} ", status.Id, status.Name);

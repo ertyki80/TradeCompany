@@ -123,6 +123,10 @@
       <Project>{ba99eecb-c060-429f-85b1-040cc208cd53}</Project>
       <Name>TradingCompany.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TradingCompanyDataTransfer\TradingCompanyDataTransfer.csproj">
+      <Project>{da5cd447-214c-43cd-9af4-ee7a512b1301}</Project>
+      <Name>TradingCompanyDataTransfer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />

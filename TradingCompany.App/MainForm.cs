@@ -7,15 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoMapper;
 using MaterialSkin.Controls;
 using TradingCompany.DataAccess.Models;
+using TradingCompanyDataTransfer;
 
 namespace TradingCompany.App
 {
     public partial class MainForm : MaterialForm
     {
-        private User _user = new User();
-        private List<Product> _buyList = new List<Product>();
+        private UserDTO _user = new UserDTO();
+        private List<ProductDTO> _buyList = new List<ProductDTO>();
+        private static IMapper SetupMapper()
+        {
+            MapperConfiguration conf = new MapperConfiguration(
+                cfg => cfg.AddMaps(typeof(User).Assembly, typeof(Transaction).Assembly, typeof(Status).Assembly, typeof(Role).Assembly, typeof(Product).Assembly, typeof(Logs).Assembly, typeof(Category).Assembly)
+            );
+
+            return conf.CreateMapper();
+        }
+
+
+        private static readonly IMapper mapper = SetupMapper();
         public MainForm()
         {
             InitializeComponent();
@@ -40,8 +53,7 @@ namespace TradingCompany.App
                 label2.Text += _user.Email;
 
             }
-
-            if (_user != new User())
+            if (_user != null)
             {
                 button1.Hide();
                 button2.Hide();
@@ -64,7 +76,7 @@ namespace TradingCompany.App
             }
             button1.Hide();
             button2.Hide();
-
+            this.Close();
 
         }
 
@@ -74,7 +86,8 @@ namespace TradingCompany.App
             catalog.ShowDialog();
             int totalSum = 0;
             label3.Text = "Total : ";
-            _buyList =  catalog.GetBuyedProducts();
+            _buyList.AddRange(catalog.GetBuyedProducts());
+            dataGridView1.Rows.Clear();
             foreach (var p in _buyList)
             {
 
@@ -91,16 +104,18 @@ namespace TradingCompany.App
             Catalog catalog = new Catalog(_user);
             catalog.SearchString = seachText;
             catalog.ShowDialog();
-            _buyList = catalog.GetBuyedProducts();
+            label3.Text = "Total : ";
+            _buyList.AddRange(catalog.GetBuyedProducts());
             int totalSum = 0;
+            dataGridView1.Rows.Clear();
             foreach (var p in _buyList)
             {
                 totalSum += p.Price;
-                label3.Text += totalSum.ToString();
+               
                 dataGridView1.Rows.Add(p.Id, p.Name, p.Price, p.TimeOfAdd);
                 
             }
-            
+            label3.Text += totalSum.ToString();
 
 
         }

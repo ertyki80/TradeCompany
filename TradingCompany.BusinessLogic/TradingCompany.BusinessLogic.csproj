@@ -40,6 +40,9 @@
     <AssemblyOriginatorKeyFile>TD.BL.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -60,21 +63,7 @@
     <Compile Include="Encription\EncryptionHASH.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Helpers\AutorizeLogic.cs" />
-    <Compile Include="Interfaces\IICategoryService.cs" />
-    <Compile Include="Interfaces\ILogsService.cs" />
-    <Compile Include="Interfaces\IProductService.cs" />
-    <Compile Include="Interfaces\IRoleService.cs" />
-    <Compile Include="Interfaces\IStatusService.cs" />
-    <Compile Include="Interfaces\ITransactionService.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\LogsService.cs" />
-    <Compile Include="Services\ProductService.cs" />
-    <Compile Include="Services\RoleService.cs" />
-    <Compile Include="Services\StatusService.cs" />
-    <Compile Include="Services\TransactionService.cs" />
-    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,8 +75,14 @@
       <Project>{ba99eecb-c060-429f-85b1-040cc208cd53}</Project>
       <Name>TradingCompany.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TradingCompanyDataTransfer\TradingCompanyDataTransfer.csproj">
+      <Project>{da5cd447-214c-43cd-9af4-ee7a512b1301}</Project>
+      <Name>TradingCompanyDataTransfer</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

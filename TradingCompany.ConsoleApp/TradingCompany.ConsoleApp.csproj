@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -68,6 +71,10 @@
     <ProjectReference Include="..\TradingCompany.DataAccess\TradingCompany.DataAccess.csproj">
       <Project>{ba99eecb-c060-429f-85b1-040cc208cd53}</Project>
       <Name>TradingCompany.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TradingCompanyDataTransfer\TradingCompanyDataTransfer.csproj">
+      <Project>{da5cd447-214c-43cd-9af4-ee7a512b1301}</Project>
+      <Name>TradingCompanyDataTransfer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

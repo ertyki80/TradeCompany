@@ -7,16 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoMapper;
 using MaterialSkin.Controls;
 using TradingCompany.BusinessLogic.Helpers;
 using TradingCompany.DataAccess.Models;
+using TradingCompany.DataAccess.Services;
+using TradingCompanyDataTransfer;
 
 namespace TradingCompany.App
 {
     public partial class RegistrationForm : MaterialForm
     {
+        private static IMapper SetupMapper()
+        {
+            MapperConfiguration conf = new MapperConfiguration(
+                cfg => cfg.AddMaps(typeof(User).Assembly, typeof(Transaction).Assembly, typeof(Status).Assembly, typeof(Role).Assembly, typeof(Product).Assembly, typeof(Logs).Assembly, typeof(Category).Assembly)
+            );
 
-        private User _currenteUser;
+            return conf.CreateMapper();
+        }
+
+
+        private static readonly IMapper mapper = SetupMapper();
+
+        private UserDTO _currenteUser;
         public RegistrationForm()
         {
             InitializeComponent();
@@ -94,8 +108,10 @@ namespace TradingCompany.App
         {
             var authorizeLogic = new AutorizeLogic();
             authorizeLogic.Registration(textBox1.Text,textBox2.Text,checkedListBox1.CheckedItems.ToString(),textBox3.Text,textBox4.Text,dateTimePicker1.Value,textBox5.Text);
-            _currenteUser = new User();
+            _currenteUser = new UserDTO();
+            UserService userService = new UserService(mapper);
             _currenteUser = authorizeLogic.GetUser();
+            userService.Create(_currenteUser);
             Console.WriteLine(@"Registration successful");
             this.Close();
             
@@ -107,7 +123,7 @@ namespace TradingCompany.App
 
         }
 
-        public User GetUser()
+        public UserDTO GetUser()
         {
             return _currenteUser;
         }

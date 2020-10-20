@@ -36,7 +36,7 @@ namespace TradingCompany.DataAccess.Test
         {
 
             //Arrange
-            var users =  new User()
+            var users =  new UserExtended()
                 {
                     DateOfBirth = Convert.ToDateTime("11/03/2001"), Email = "iiii@gmail.com", FirstName = "Oleh",
                     LastName = "Kolima",
@@ -55,7 +55,7 @@ namespace TradingCompany.DataAccess.Test
         [TestMethod]
         public void GetAllTest()
         {
-            var user = new User()
+            var user = new UserExtended()
             {
                 DateOfBirth = Convert.ToDateTime("11/03/2001"),
                 Email = "iiii@gmail.com",

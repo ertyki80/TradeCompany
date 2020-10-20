@@ -3,12 +3,13 @@ using System.Drawing;
 using MaterialSkin.Controls;
 using TradingCompany.BusinessLogic.Helpers;
 using TradingCompany.DataAccess.Models;
+using TradingCompanyDataTransfer;
 
 namespace TradingCompany.App
 {
     public partial class LoginForm : MaterialForm
     {
-        private User _currentUser;
+        private UserDTO _currentUser;
         public LoginForm()
         {
             InitializeComponent();
@@ -51,9 +52,11 @@ namespace TradingCompany.App
                 Console.WriteLine(@"{0} {1} {2}", _currentUser.FirstName, _currentUser.LastName,
                     _currentUser.TimeOfCreating);
             }
+
+            this.Close();
         }
 
-        public User GetUser()
+        public UserDTO GetUser()
         {
             return _currentUser;
 
