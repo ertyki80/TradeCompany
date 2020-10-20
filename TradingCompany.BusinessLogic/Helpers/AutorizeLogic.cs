@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TradingCompany.BusinessLogic.Encription;
 using TradingCompany.DataAccess.Context;
+using TradingCompany.DataAccess.Mapper;
 using TradingCompany.DataAccess.Models;
 using TradingCompany.DataAccess.Services;
 using TradingCompanyDataTransfer;
@@ -15,17 +16,22 @@ namespace TradingCompany.BusinessLogic.Helpers
         private static IMapper SetupMapper()
         {
             MapperConfiguration conf = new MapperConfiguration(
-                cfg => cfg.AddMaps(typeof(User).Assembly, typeof(Transaction).Assembly, typeof(Status).Assembly, typeof(Role).Assembly, typeof(Product).Assembly, typeof(Logs).Assembly, typeof(Category).Assembly)
+                mc => mc.AddProfile(new UserProfile())
             );
 
             return conf.CreateMapper();
         }
 
-        private static readonly IMapper mapper = SetupMapper();
+        private  IMapper mapper;
 
         public bool UserRecognition = false;
 
         private UserDTO _currentUser;
+
+        public AutorizeLogic()
+        {
+            mapper = SetupMapper();
+        }
 
         public bool Login(string login, string password)
         {

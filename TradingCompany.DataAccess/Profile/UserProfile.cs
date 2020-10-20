@@ -9,9 +9,9 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.DataAccess.Mapper
 {
-    class UserProfile:Profile
+    public class UserProfile:Profile
     {
-        UserProfile()
+        public UserProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Transaction, TransactionDTO>().ReverseMap();
