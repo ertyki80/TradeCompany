@@ -4,10 +4,10 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.DataAccess.Interfaces
 {
-    internal interface ILogsService
+    public interface ILogsService
     {
         LogsDTO GetLogs(int id);
-        IEnumerable<LogsDTO> GetAllLogs();
+        List<LogsDTO> GetAllLogs();
         LogsDTO Create(LogsDTO logs);
 
     }

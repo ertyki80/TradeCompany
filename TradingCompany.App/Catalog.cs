@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using AutoMapper;
 using MaterialSkin.Controls;
+using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
 using TradingCompany.DataAccess.Services;
@@ -13,37 +14,24 @@ namespace TradingCompany.App
 {
     public partial class Catalog : MaterialForm
     {
-        private static IMapper SetupMapper()
-        {
-            MapperConfiguration conf = new MapperConfiguration(
-                cfg => cfg.AddMaps(typeof(User).Assembly, typeof(Transaction).Assembly, typeof(Status).Assembly, typeof(Role).Assembly, typeof(Product).Assembly, typeof(Logs).Assembly, typeof(Category).Assembly)
-            );
-
-            return conf.CreateMapper();
-        }
+        
 
         //Services
-        private TransactionService _transactionService =new TransactionService(mapper);
-        private StatusService _statusService = new StatusService(mapper);
-        ProductService _productService = new ProductService(mapper);
-        LogsService _logsService = new LogsService(mapper);
-
-        private static readonly IMapper mapper = SetupMapper();
-
-        private IEnumerable<ProductDTO> _products = new List<ProductDTO>();
-        private List<ProductDTO> _buyList = new List<ProductDTO>();
         public ProductDTO selectedProduct;
-
+        private readonly ITraderManager _manager;
+        private List<ProductDTO> _products; 
+        private List<ProductDTO> _buyList;
         UserDTO _currentUser;
 
         //-------------
 
         public string SearchString = "";
 
-        public Catalog(UserDTO currentUser)
+        public Catalog(ITraderManager manager,UserDTO user)
         {
-            _currentUser = currentUser;
+            _manager = manager;
             InitializeComponent();
+            Update();
         }
 
         private new void Update()
@@ -52,7 +40,7 @@ namespace TradingCompany.App
             if (SearchString == "")
             {
                 dataGridView1.Rows.Clear();
-                _products = _productService.GetAllProducts();
+                _products = _manager.GetAllProduct();
 
                 foreach (var p in _products)
                 {
@@ -62,7 +50,7 @@ namespace TradingCompany.App
             else
             {
                 dataGridView1.Rows.Clear();
-                _products = _productService.GetAllProducts();
+                _products = _manager.GetAllProduct();
 
                 foreach (var p in _products.Where(p => p.Name.Contains(SearchString)))
                 {
@@ -75,7 +63,6 @@ namespace TradingCompany.App
         private void Catalog_Load(object sender, EventArgs e)
         {
             Update();
-
 
 
         }
@@ -97,6 +84,7 @@ namespace TradingCompany.App
         {
             const MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             var result = MessageBox.Show("Buy this item?", "", buttons);
+
             if (dataGridView1.SelectedCells.Count > 0 && result == DialogResult.Yes)
             {
                 var selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
@@ -104,18 +92,17 @@ namespace TradingCompany.App
                 var id = selectedRow.Cells["Column5"].Value.ToString();
                 selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
                 selectedProduct.CountInStock--;
-                _productService.Update(Convert.ToInt32(id), selectedProduct);
+                _manager.BuyProduct(selectedProduct);
 
                 var transaction = new TransactionDTO()
                 {
                     Product = selectedProduct,
-                    Status = _statusService.GetStatus(4),
+                    Status = _manager.GetStatusTransaction(4),
                     Time = DateTime.Now,
                     TimeOfChange = DateTime.Now,
                     User = _currentUser
                 };
-                _transactionService.Create(transaction);
-                _logsService.Create(new LogsDTO() { Name = "Buy a new product with ID = " + id + ".", Time = System.DateTime.Now });
+                _manager.AddTansaction(transaction);
                 _buyList.Add(selectedProduct);
                 Update();
 
@@ -138,7 +125,7 @@ namespace TradingCompany.App
                 var selectedRow = dataGridView1.Rows[selectedRowIndex];
                 var id = selectedRow.Cells["Column5"].Value.ToString();
                 var selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
-                _productService.Delete(Convert.ToInt32(id));
+                _manager.DeleteProduct(Convert.ToInt32(id));
             }
         }
 
@@ -156,19 +143,18 @@ namespace TradingCompany.App
                 var id = selectedRow.Cells["Column5"].Value.ToString();
                 var selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
                 selectedProduct.CountInStock -= count;
-                _productService.Update(Convert.ToInt32(id), selectedProduct);
+                _manager.BuyManyProducts(selectedProduct,count);
                 selectedProduct.Price *= count;
                 var transaction = new TransactionDTO()
                 {
                     Product = selectedProduct,
-                    Status = _statusService.GetStatus(4),
+                    Status = _manager.GetStatusTransaction(4),
                     Time = DateTime.Now,
                     TimeOfChange = DateTime.Now,
                     User = _currentUser
                 };
-                _transactionService.Create(transaction);
+                _manager.AddTansaction(transaction);
 
-                _logsService.Create(new LogsDTO() { Name = "Buy a new product with ID = " + id + "." + "count = " + count, Time = System.DateTime.Now });
                 _buyList.Add(selectedProduct);
                 Update();
             }

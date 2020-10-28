@@ -16,7 +16,7 @@ namespace TradingCompany.DataAccess.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<RoleDTO> GetAllRole()
+        public List<RoleDTO> GetAllRole()
         {
             using (var e = new DataContext())
             {

@@ -18,7 +18,7 @@ namespace TradingCompany.DataAccess.Services
         {
             _mapper = mapper;
         }
-        public IEnumerable<CategoryDTO> GetAllCategory()
+        public List<CategoryDTO> GetAllCategory()
         {
             using (DataContext dataContext = new DataContext())
             {

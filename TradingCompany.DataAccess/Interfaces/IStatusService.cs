@@ -4,11 +4,11 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.DataAccess.Interfaces
 {
-    interface IStatusService
+    public interface IStatusService
     {
 
         StatusDTO GetStatus(int id);
-        IEnumerable<StatusDTO> GetAllStatus();
+        List<StatusDTO> GetAllStatus();
 
     }
 }

@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Drawing;
 using MaterialSkin.Controls;
-using TradingCompany.BusinessLogic.Helpers;
+using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Models;
 using TradingCompanyDataTransfer;
-
+using System.Windows.Forms;
 namespace TradingCompany.App
 {
     public partial class LoginForm : MaterialForm
     {
         private UserDTO _currentUser;
-        public LoginForm()
+        protected readonly IAuthManager _manager;
+
+        public LoginForm(IAuthManager manager)
         {
             InitializeComponent();
+            _manager = manager;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -39,27 +42,52 @@ namespace TradingCompany.App
                 textBox2.Text = "";
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void doLogin()
         {
-            var authorizeLogic = new AutorizeLogic();
-            var userExist = authorizeLogic.Login(textBox1.Text, textBox2.Text);
-            if (!userExist) return;
-            _currentUser = authorizeLogic.GetUser();
-            if (userExist != false)
+            if (_manager.Login(textBox1.Text, textBox2.Text))
             {
-                Console.WriteLine(@"Login successful");
-                Console.WriteLine(@"{0} {1} {2}", _currentUser.FirstName, _currentUser.LastName,
-                    _currentUser.TimeOfCreating);
+                DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Invalid credentials");
             }
 
-            this.Close();
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            doLogin();
+            
         }
 
         public UserDTO GetUser()
         {
             return _currentUser;
 
+        }
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                doLogin();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RegistrationForm register = new RegistrationForm(_manager);
+            var res = register.ShowDialog();
+            if (DialogResult.OK == res || DialogResult.Cancel == res)
+            {
+                if (register.GetUser() != null)
+                {
+                    _currentUser = register.GetUser();
+                    DialogResult = DialogResult.OK;
+                }
+            }
+            this.Close();
         }
     }
 }

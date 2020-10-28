@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -31,18 +32,19 @@ namespace TradingCompany.DataAccess.Services
         {
             using (var entities = new DataContext())
             {
-                var m = entities.Products.SingleOrDefault(mm => mm.Id == id);
+                Product m = entities.Products.SingleOrDefault(mm => mm.Id == id);
                 if (m == null)
                 {
                     return;
                 }
-
+                List<Transaction> transactions = entities.Transactions.Where(t => t.Product.Id == id).ToList();
+                entities.Transactions.RemoveRange(transactions);
                 entities.Products.Remove(m);
                 entities.SaveChanges();
             }
         }
 
-        public IEnumerable<ProductDTO> GetAllProducts()
+        public List<ProductDTO> GetAllProducts()
         {
             using (var e = new DataContext())
             {
@@ -61,7 +63,7 @@ namespace TradingCompany.DataAccess.Services
             }
         }
 
-        public void Update(int id, ProductDTO product)
+        public ProductDTO Update( ProductDTO product)
         {
             using (var entity = new DataContext())
             {
@@ -69,6 +71,23 @@ namespace TradingCompany.DataAccess.Services
                 Product m = _mapper.Map<Product>(product);
                 entity.Products.AddOrUpdate(m);
                 entity.SaveChanges();
+            }
+            using (var entities = new DataContext())
+            {
+                var productInDB = entities.Products.SingleOrDefault(m => m.Id == product.Id);
+                if (productInDB == null)
+                {
+                    product.TimeOfAdd = DateTime.UtcNow;
+                    productInDB = _mapper.Map<Product>(product);
+                    entities.Products.Add(productInDB);
+                }
+                else
+                {
+                    productInDB.TimeOfAdd = DateTime.UtcNow;
+                    _mapper.Map(product, productInDB);
+                }
+                entities.SaveChanges();
+                return _mapper.Map<ProductDTO>(product);
             }
         }
     }

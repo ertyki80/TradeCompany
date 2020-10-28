@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace TradingCompany.DataAccess.Services
             }
         }
 
-        public IEnumerable<TransactionDTO> GetAllTransactions()
+        public List<TransactionDTO> GetAllTransactions()
         {
             using (var e = new DataContext())
             {
@@ -62,13 +63,24 @@ namespace TradingCompany.DataAccess.Services
             }
         }
 
-        public void Update(int id, TransactionDTO transaction)
+        public TransactionDTO Update(int id, TransactionDTO transaction)
         {
-            using (var entity = new DataContext())
+            using (var entities = new DataContext())
             {
-                Transaction m = _mapper.Map<Transaction>(transaction);
-                entity.Transactions.AddOrUpdate(m);
-                entity.SaveChanges();
+                var transactionInDb = entities.Transactions.SingleOrDefault(m => m.Id == transaction.Id);
+                if (transactionInDb == null)
+                {
+                    transaction.TimeOfChange = DateTime.UtcNow;
+                    transactionInDb = _mapper.Map<Transaction>(transaction);
+                    entities.Transactions.Add(transactionInDb);
+                }
+                else
+                {
+                    transactionInDb.TimeOfChange = DateTime.UtcNow;
+                    _mapper.Map(transaction, transactionInDb);
+                }
+                entities.SaveChanges();
+                return _mapper.Map<TransactionDTO>(transaction);
             }
         }
     }

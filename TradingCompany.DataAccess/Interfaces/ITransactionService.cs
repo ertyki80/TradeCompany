@@ -4,12 +4,12 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.DataAccess.Interfaces
 {
-    interface ITransactionService
+    public interface ITransactionService
     {
         TransactionDTO GetTransaction(int id);
-        IEnumerable<TransactionDTO> GetAllTransactions();
+        List<TransactionDTO> GetAllTransactions();
         TransactionDTO Create(TransactionDTO transaction);
-        void Update(int id, TransactionDTO transaction);
+        TransactionDTO Update(int id, TransactionDTO transaction);
         void Delete(int id);
     }
 }

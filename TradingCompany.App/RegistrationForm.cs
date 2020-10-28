@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoMapper;
 using MaterialSkin.Controls;
-using TradingCompany.BusinessLogic.Helpers;
+using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Models;
 using TradingCompany.DataAccess.Services;
 using TradingCompanyDataTransfer;
@@ -18,21 +18,11 @@ namespace TradingCompany.App
 {
     public partial class RegistrationForm : MaterialForm
     {
-        private static IMapper SetupMapper()
-        {
-            MapperConfiguration conf = new MapperConfiguration(
-                cfg => cfg.AddMaps(typeof(User).Assembly, typeof(Transaction).Assembly, typeof(Status).Assembly, typeof(Role).Assembly, typeof(Product).Assembly, typeof(Logs).Assembly, typeof(Category).Assembly)
-            );
-
-            return conf.CreateMapper();
-        }
-
-
-        private static readonly IMapper mapper = SetupMapper();
-
+        protected readonly IAuthManager _manager;
         private UserDTO _currenteUser;
-        public RegistrationForm()
+        public RegistrationForm(IAuthManager manager)
         {
+            _manager = manager;
             InitializeComponent();
         }
 
@@ -106,12 +96,8 @@ namespace TradingCompany.App
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var authorizeLogic = new AutorizeLogic();
-            authorizeLogic.Registration(textBox1.Text,textBox2.Text,checkedListBox1.CheckedItems.ToString(),textBox3.Text,textBox4.Text,dateTimePicker1.Value,textBox5.Text);
-            _currenteUser = new UserDTO();
-            UserService userService = new UserService(mapper);
-            _currenteUser = authorizeLogic.GetUser();
-            userService.Create(_currenteUser);
+        
+            _manager.Registration(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, dateTimePicker1.Value, textBox5.Text);
             Console.WriteLine(@"Registration successful");
             this.Close();
             

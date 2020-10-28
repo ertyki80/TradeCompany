@@ -29,7 +29,7 @@ namespace TradingCompany.DataAccess.Services
             }
         }
 
-        public IEnumerable<LogsDTO> GetAllLogs()
+        public List<LogsDTO> GetAllLogs()
         {
             using (var e = new DataContext())
             {

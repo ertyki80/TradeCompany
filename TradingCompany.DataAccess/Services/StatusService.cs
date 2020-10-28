@@ -16,7 +16,7 @@ namespace TradingCompany.DataAccess.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<StatusDTO> GetAllStatus()
+        public List<StatusDTO> GetAllStatus()
         {
             using (var e = new DataContext())
             {

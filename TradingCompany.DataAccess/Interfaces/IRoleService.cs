@@ -4,10 +4,10 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.DataAccess.Interfaces
 {
-    interface IRoleService
+    public interface IRoleService
     {
         RoleDTO GetRole(int id);
-        IEnumerable<RoleDTO> GetAllRole();
+        List<RoleDTO> GetAllRole();
 
 
     }

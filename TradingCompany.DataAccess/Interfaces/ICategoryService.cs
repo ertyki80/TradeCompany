@@ -3,10 +3,10 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.DataAccess.Interfaces
 {
-    internal interface ICategoryService
+    public interface ICategoryService
     {
         CategoryDTO GetCategory(int id);
-        IEnumerable<CategoryDTO> GetAllCategory();
+        List<CategoryDTO> GetAllCategory();
        
     }
 }

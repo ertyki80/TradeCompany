@@ -4,12 +4,12 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.DataAccess.Interfaces
 {
-    interface IProductService
+    public interface IProductService
     {
         ProductDTO GetProduct(int id);
-        IEnumerable<ProductDTO> GetAllProducts();
+        List<ProductDTO> GetAllProducts();
         ProductDTO Create(ProductDTO product);
-        void Update(int id, ProductDTO product);
+        ProductDTO Update(ProductDTO product);
         void Delete(int id);
 
     }

@@ -107,7 +107,7 @@ namespace TradingCompany.App
                     
                     ProductDTO product= productService.GetAllProducts().Where(p => p.Name == name && p.Price == Convert.ToInt32(price) ).FirstOrDefault();
                     int productID = product.Id;
-                    productService.Update(productID, product);
+                    productService.Update( product);
                    
                 }
 
