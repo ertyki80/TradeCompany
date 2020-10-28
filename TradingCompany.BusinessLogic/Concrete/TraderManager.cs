@@ -36,8 +36,9 @@ namespace TradingCompany.BusinessLogic.Concrete
 
         public void BuyProduct(ProductDTO product)
         {
+            _productService.Delete(product.Id);
             product.CountInStock--;
-            _productService.Update(product);
+            _productService.Create(product);
         }
 
         public void DeleteProduct(int id)

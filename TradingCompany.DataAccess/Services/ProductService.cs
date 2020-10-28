@@ -65,13 +65,6 @@ namespace TradingCompany.DataAccess.Services
 
         public ProductDTO Update( ProductDTO product)
         {
-            using (var entity = new DataContext())
-            {
-
-                Product m = _mapper.Map<Product>(product);
-                entity.Products.AddOrUpdate(m);
-                entity.SaveChanges();
-            }
             using (var entities = new DataContext())
             {
                 var productInDB = entities.Products.SingleOrDefault(m => m.Id == product.Id);

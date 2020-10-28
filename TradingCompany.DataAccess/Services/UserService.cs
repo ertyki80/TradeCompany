@@ -23,11 +23,16 @@ namespace TradingCompany.DataAccess.Services
         {
             using (var entities = new DataContext())
             {
-                
                 User m = _mapper.Map<User>(user);
-                entities.Users.Add(m);
-                entities.SaveChanges();
-                    
+                if (entities.Users.Where(u => u == m).FirstOrDefault() != null)
+                {
+                    throw new Exception("User already exists!");
+                }
+                else
+                {
+                    entities.Users.Add(m);
+                    entities.SaveChanges();
+                }
                 return _mapper.Map<UserDTO>(m);
             }
         }
@@ -60,7 +65,7 @@ namespace TradingCompany.DataAccess.Services
         {
             using (var e = new DataContext())
             {
-                var m = e.Users.SingleOrDefault(mm => mm.Login == login);
+                var m = e.Users.FirstOrDefault(mm => mm.Login == login);
                 return m.Id;
 
             }
@@ -80,9 +85,9 @@ namespace TradingCompany.DataAccess.Services
         {
             using (var ent = new DataContext())
             {
-                User user = ent.Users.SingleOrDefault(u => u.Login == username);
+                User user = _mapper.Map<User>(ent.Users.FirstOrDefault(u => u.Login == username));
                 EncryptionHash encryptionHash = new EncryptionHash();
-                return user != null && user.Password == encryptionHash.EncodePassword(password);
+                return user != null && user.Password.SequenceEqual(encryptionHash.EncodePassword(password));
             }
         }
 
@@ -104,7 +109,7 @@ namespace TradingCompany.DataAccess.Services
                         LastName = lastName,
                         Password =encryptionHash.EncodePassword(password),
                         //Role with id = 1 => 'User'
-                        Role = _mapper.Map<Role>(roleService.GetRole(1)),
+                        Role = _mapper.Map<Role>(roleService.GetRole(1075)),
                         TimeOfCreating = DateTime.Now
 
                     };

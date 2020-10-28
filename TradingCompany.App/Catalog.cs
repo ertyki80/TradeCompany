@@ -21,7 +21,7 @@ namespace TradingCompany.App
         private readonly ITraderManager _managerT;
         private readonly IProductManager _managerP;
         private List<ProductDTO> _products;
-        private readonly List<ProductDTO> _buyList;
+        private readonly List<ProductDTO> _buyList =  new List<ProductDTO>();
         private readonly UserDTO _currentUser;
 
         //-------------
@@ -34,19 +34,18 @@ namespace TradingCompany.App
             InitializeComponent();
             _managerT = managerT;
             _managerP = managerP;
-            _buyList = new List<ProductDTO>();
             _currentUser = _managerT.GetUserById(Program.Id);
             Update();
         }
 
         private new void Update()
         {
+            dataGridView1.Rows.Clear();
 
             if (SearchString == "")
             {
-                dataGridView1.Rows.Clear();
                 _products = _managerT.GetAllProduct();
-
+                
                 foreach (var p in _products)
                 {
                     dataGridView1.Rows.Add(p.Id, p.Name, p.Price, p.CountInStock, p.TimeOfAdd);
@@ -54,7 +53,6 @@ namespace TradingCompany.App
             }
             else
             {
-                dataGridView1.Rows.Clear();
                 _products = _managerT.GetAllProduct();
 
                 foreach (var p in _products.Where(p => p.Name.Contains(SearchString)))
@@ -95,19 +93,20 @@ namespace TradingCompany.App
                 var selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
                 var selectedRow = dataGridView1.Rows[selectedRowIndex];
                 var id = selectedRow.Cells["Column5"].Value.ToString();
-                selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
+                selectedProduct = _products.ToList().Where(u => u.Id == Convert.ToInt32(id)).First();
                 _managerT.BuyProduct(selectedProduct);
 
-                var transaction = new TransactionDTO()
-                {
-                    Product = selectedProduct,
-                    //Status 1=>Buy product
-                    Status = _managerT.GetStatusTransaction(1),
-                    Time = DateTime.Now,
-                    TimeOfChange = DateTime.Now,
-                    User = _currentUser
-                };
-                _managerT.AddTansaction(transaction);
+                //var transaction = new TransactionDTO()
+                //{
+                //    Product = selectedProduct,
+                //    //Status 1=>Buy product
+                //    Status = _managerT.GetStatusTransaction(1008),
+                //    Time = DateTime.Now,
+                //    TimeOfChange = DateTime.Now,
+                //    User = _currentUser
+                //};
+                //_managerT.AddTansaction(transaction);
+
                 _buyList.Add(selectedProduct);
                 Update();
 
@@ -150,15 +149,15 @@ namespace TradingCompany.App
                 selectedProduct.CountInStock -= count;
                 _managerT.BuyManyProducts(selectedProduct,count);
                 selectedProduct.Price *= count;
-                var transaction = new TransactionDTO()
-                {
-                    Product = selectedProduct,
-                    Status = _managerT.GetStatusTransaction(4),
-                    Time = DateTime.Now,
-                    TimeOfChange = DateTime.Now,
-                    User = _currentUser
-                };
-                _managerT.AddTansaction(transaction);
+                //var transaction = new TransactionDTO()
+                //{
+                //    Product = selectedProduct,
+                //    Status = _managerT.GetStatusTransaction(4),
+                //    Time = DateTime.Now,
+                //    TimeOfChange = DateTime.Now,
+                //    User = _currentUser
+                //};
+                //_managerT.AddTansaction(transaction);
 
                 _buyList.Add(selectedProduct);
                 Update();

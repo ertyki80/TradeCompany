@@ -31,7 +31,6 @@ namespace TradingCompany.App
         {
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -40,7 +39,7 @@ namespace TradingCompany.App
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(307, 283);
+            this.textBox5.Location = new System.Drawing.Point(307, 253);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(188, 20);
             this.textBox5.TabIndex = 20;
@@ -48,19 +47,11 @@ namespace TradingCompany.App
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(307, 257);
+            this.textBox4.Location = new System.Drawing.Point(307, 227);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(188, 20);
             this.textBox4.TabIndex = 18;
             this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(307, 229);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(188, 20);
-            this.textBox3.TabIndex = 17;
-            this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
             // 
             // button1
             // 
@@ -69,7 +60,7 @@ namespace TradingCompany.App
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Myriad Pro SemiExt", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(308, 339);
+            this.button1.Location = new System.Drawing.Point(308, 279);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(187, 57);
             this.button1.TabIndex = 16;
@@ -111,7 +102,6 @@ namespace TradingCompany.App
             this.ClientSize = new System.Drawing.Size(800, 477);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -127,7 +117,6 @@ namespace TradingCompany.App
         #endregion
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;

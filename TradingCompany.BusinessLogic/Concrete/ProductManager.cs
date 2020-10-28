@@ -24,7 +24,15 @@ namespace TradingCompany.BusinessLogic.Concrete
 
         public ProductDTO AddProduct(ProductDTO product)
         {
+            List<ProductDTO> productList = _productService.GetAllProducts();
+            if (productList.Contains(product))
+            {
+                return null;
+            }
+            else
+            { 
             return _productService.Create(product);
+            }
         }
 
         public void DeleteProduct(int productId)

@@ -38,7 +38,6 @@ namespace TradingCompany.App
 
                 textBox1.Text = SelectProduct.Name;
                 textBox2.Text = SelectProduct.Price.ToString();
-                textBox3.Text = SelectProduct.Category.Name;
                 textBox4.Text = SelectProduct.Description;
                 textBox5.Text = SelectProduct.CountInStock.ToString();
 
@@ -47,14 +46,14 @@ namespace TradingCompany.App
             else {
                 textBox1.Text = "Name";
                 textBox2.Text = "Price";
-                textBox3.Text = "Category";
+                
                 textBox4.Text = "Description";
                 textBox5.Text = "Count";
             }
 
             textBox1.ForeColor = Color.Gray;
             textBox2.ForeColor = Color.Gray;
-            textBox3.ForeColor = Color.Gray;
+           
             textBox4.ForeColor = Color.Gray;
             textBox5.ForeColor = Color.Gray;
         }
@@ -71,11 +70,8 @@ namespace TradingCompany.App
                     TimeOfAdd = DateTime.Now, 
                     CountInStock = Convert.ToInt32(textBox5.Text),
                     Description = textBox4.Text, 
-                    Category = new CategoryDTO()
-                    {
-                        Name = textBox3.Text
-                    }
-            };
+                    
+                };
 
                 _productManager.AddProduct(product);
 
@@ -85,18 +81,23 @@ namespace TradingCompany.App
             {
                 string name = textBox1.Text;
                 string price = textBox2.Text;
-                string category = textBox3.Text;
-                CategoryDTO category1 = new CategoryDTO() { Name = category };
                 string description = textBox4.Text;
                 string countInStock = textBox5.Text;
-                string timeOfAdd = DateTime.Now.ToString();
 
-                if (name != "" && price != "" && category != "" && description != "" && countInStock != "")
+                _productManager.DeleteProduct(SelectProduct.Id);
+                if (name != "" && price != ""  && description != "" && countInStock != "")
                 {
 
-                    ProductDTO product = _productManager.GetListOfProducts().Where(p => p.Name == name && p.Price == Convert.ToInt32(price)).FirstOrDefault();
-                    _productManager.UpdateProduct(product);
+                    ProductDTO product = new ProductDTO
+                    {
+                        CountInStock = Convert.ToInt32(countInStock),
+                        Description = description,
+                        Name = name,
+                        Price = Convert.ToInt32(price),
+                        TimeOfAdd = DateTime.Now
+                    };
 
+                    _productManager.AddProduct(product);
                 }
 
             }
@@ -114,20 +115,11 @@ namespace TradingCompany.App
 
         private void textBox2_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text == "Price")
-            {
-                textBox2.Text = "";
-            }
 
         }
 
         private void textBox3_Click(object sender, EventArgs e)
         {
-            if (textBox3.Text == "Category")
-            {
-                textBox3.Text = "";
-            }
-
 
         }
 

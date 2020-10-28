@@ -10,7 +10,7 @@ namespace TradingCompany.App
     public partial class MainForm : MaterialForm
     {
         private readonly int _id = Program.Id;
-        private List<ProductDTO> _buyList;
+        private List<ProductDTO> _buyList = new List<ProductDTO>();
         private UserDTO _user;
         private readonly ITraderManager _managerT;
         private readonly IProductManager _managerP;
@@ -58,7 +58,7 @@ namespace TradingCompany.App
             var res = catalog.ShowDialog();
             if (DialogResult.OK == res || DialogResult.Cancel == res)
             {
-                Refresh(catalog);
+                Refresh(catalog);   
             }
 
 
