@@ -9,15 +9,18 @@ using TradingCompanyDataTransfer;
 
 namespace TradingCompany.BusinessLogic.Concrete
 {
-    class TraderManager : ITraderManager
+    public class TraderManager : ITraderManager
     {
         private readonly IProductService _productService;
         private readonly ITransactionService _transactionService;
-        public TraderManager(IProductService productService, ITransactionService transaction)
+        private readonly IUserService _userService;
+        private readonly IStatusService _statusService;
+        public TraderManager(IProductService productService, ITransactionService transactionService, IUserService userService, IStatusService statusService)
         {
             _productService = productService;
-            _transactionService = transaction;
-
+            _transactionService = transactionService;
+            _userService = userService;
+            _statusService = statusService;
         }
 
         public TransactionDTO AddTansaction(TransactionDTO transaction)
@@ -27,12 +30,14 @@ namespace TradingCompany.BusinessLogic.Concrete
 
         public void BuyManyProducts(ProductDTO product, int count)
         {
-            throw new NotImplementedException();
+            product.CountInStock = product.CountInStock - count;
+            _productService.Update(product);
         }
 
         public void BuyProduct(ProductDTO product)
         {
-            throw new NotImplementedException();
+            product.CountInStock--;
+            _productService.Update(product);
         }
 
         public void DeleteProduct(int id)
@@ -57,7 +62,12 @@ namespace TradingCompany.BusinessLogic.Concrete
 
         public StatusDTO GetStatusTransaction(int id)
         {
-            throw new NotImplementedException();
+           return  _statusService.GetStatus(id);
+        }
+
+        public UserDTO GetUserById(int id)
+        {
+            return _userService.GetUser(id);
         }
 
         public TransactionDTO UpdateTransaction(int id,TransactionDTO transaction)

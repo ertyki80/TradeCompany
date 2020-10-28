@@ -6,5 +6,6 @@ namespace TradingCompany.BusinessLogic.Interfaces
     {
         bool Login(string username, string password);
         bool Registration(string login, string password, string firstName, string lastName, DateTime dateOfBirth, string email);
+        int GetId(string login);
     }
 }

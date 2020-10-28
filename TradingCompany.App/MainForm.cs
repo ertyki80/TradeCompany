@@ -9,12 +9,16 @@ namespace TradingCompany.App
 {
     public partial class MainForm : MaterialForm
     {
+        private readonly int _id = Program.Id;
         private List<ProductDTO> _buyList;
         private UserDTO _user;
-        ITraderManager _managerT;
-        public MainForm(ITraderManager managerT)
+        private readonly ITraderManager _managerT;
+        private readonly IProductManager _managerP;
+        public MainForm(ITraderManager managerT, IProductManager managerP)
         {
             _managerT = managerT;
+            _managerP = managerP;
+            _user = _managerT.GetUserById(_id);
             InitializeComponent();
         }
 
@@ -22,7 +26,7 @@ namespace TradingCompany.App
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Catalog catalog = new Catalog(_managerT,_user);
+            Catalog catalog = new Catalog(_managerT,_managerP,_user);
             var res = catalog.ShowDialog();
             if (DialogResult.OK == res || DialogResult.Cancel == res)
             {
@@ -49,7 +53,7 @@ namespace TradingCompany.App
         private void button4_Click(object sender, EventArgs e)
         {
             string seachText = textBox1.Text;
-            Catalog catalog = new Catalog(_managerT,_user);
+            Catalog catalog = new Catalog(_managerT, _managerP, _user);
             catalog.SearchString = seachText;
             var res = catalog.ShowDialog();
             if (DialogResult.OK == res || DialogResult.Cancel == res)

@@ -17,6 +17,7 @@ namespace TradingCompany.BusinessLogic.Interfaces
         void BuyProduct(ProductDTO product);
         void BuyManyProducts(ProductDTO product,int count);
         void DeleteProduct(int id);
+        UserDTO GetUserById(int id);
         StatusDTO GetStatusTransaction(int id);
 
 

@@ -9,7 +9,6 @@ namespace TradingCompany.App
 {
     public partial class LoginForm : MaterialForm
     {
-        private UserDTO _currentUser;
         protected readonly IAuthManager _manager;
 
         public LoginForm(IAuthManager manager)
@@ -61,9 +60,9 @@ namespace TradingCompany.App
             
         }
 
-        public UserDTO GetUser()
+        public int GetId()
         {
-            return _currentUser;
+            return _manager.GetId(textBox1.Text);
 
         }
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
@@ -76,18 +75,7 @@ namespace TradingCompany.App
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            RegistrationForm register = new RegistrationForm(_manager);
-            var res = register.ShowDialog();
-            if (DialogResult.OK == res || DialogResult.Cancel == res)
-            {
-                if (register.GetUser() != null)
-                {
-                    _currentUser = register.GetUser();
-                    DialogResult = DialogResult.OK;
-                }
-            }
-            this.Close();
+            DialogResult = DialogResult.Yes;
         }
     }
 }

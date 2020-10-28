@@ -16,6 +16,11 @@ namespace TradingCompany.BusinessLogic
             _userDal = userDal;
         }
 
+        public int GetId(string login)
+        {
+            return _userDal.GetId(login);
+        }
+
         public bool Login(string username, string password)
         {
             return _userDal.Login(username, password);
@@ -26,5 +31,6 @@ namespace TradingCompany.BusinessLogic
         {
             return _userDal.Registration(login,  password,  firstName,  lastName,  dateOfBirth,  email);
         }
+
     }
 }

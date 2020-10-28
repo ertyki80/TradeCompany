@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoMapper;
@@ -19,11 +20,13 @@ namespace TradingCompany.App
     public partial class RegistrationForm : MaterialForm
     {
         protected readonly IAuthManager _manager;
-        private UserDTO _currenteUser;
+
+
         public RegistrationForm(IAuthManager manager)
         {
-            _manager = manager;
+            
             InitializeComponent();
+            _manager = manager;
         }
 
         private void RegistrationForm_Load(object sender, EventArgs e)
@@ -96,22 +99,46 @@ namespace TradingCompany.App
 
         private void button1_Click(object sender, EventArgs e)
         {
-        
-            _manager.Registration(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, dateTimePicker1.Value, textBox5.Text);
-            Console.WriteLine(@"Registration successful");
-            this.Close();
-            
+            doRegister();
+
+
 
         }
 
+        private void doRegister()
+        {
+            Regex emailCorrect = new Regex(@"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$");
+            if (!emailCorrect.IsMatch(textBox5.Text.Trim()))
+            {
+                MessageBox.Show("Check the Email address");
+            }
+            else if (
+               textBox1.Text.Trim() == "" ||
+               textBox2.Text.Trim() == "" ||
+               textBox3.Text.Trim() == "" ||
+               textBox4.Text.Trim() == "")
+            {
+                MessageBox.Show("Fill all field");
+            }
+            else
+            {
+                try
+                {
+                    _manager.Registration(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, dateTimePicker1.Value, textBox5.Text);
+                    MessageBox.Show("Refistration successful");
+                    this.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+                
+
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        public UserDTO GetUser()
-        {
-            return _currenteUser;
         }
 
     }

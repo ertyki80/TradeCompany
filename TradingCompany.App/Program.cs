@@ -15,27 +15,38 @@ namespace TradingCompany.App
     {
         public static AppDataManager SettingsManager;
         public static UnityContainer Container;
-
+        public static int Id;
         [STAThread]
         public static void Main()
         {
             ConfigureUnity();
 
+
+            SettingsManager = new AppDataManager();
+            bool check = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            SettingsManager = new AppDataManager();
             LoginForm lf = Container.Resolve<LoginForm>();
-
-            if (lf.ShowDialog() == DialogResult.OK)
+            
+            while (check)
             {
-                Application.Run(Container.Resolve<MainForm>());
+                lf.ShowDialog();
+                if (lf.DialogResult== DialogResult.Yes)
+                {
+                    Application.Run(Container.Resolve<RegistrationForm>());
+                }
+                else if (lf.DialogResult == DialogResult.OK)
+                {
+                    Id = lf.GetId();
+                    Application.Run(Container.Resolve<MainForm>());
+                }
+                else
+                {
+                    check = false;
+                    Application.Exit();
+                }
             }
-            else
-            {
-                Application.Exit();
-            }
-
 
         }
         private static void ConfigureUnity()
@@ -56,7 +67,9 @@ namespace TradingCompany.App
                      .RegisterType<ITransactionService, TransactionService>()
                      .RegisterType<ILogsService, LogsService>()
                      .RegisterType<IAuthManager, AuthManager>()
-                     .RegisterType<IProductManager, ProductManager>();
+                     .RegisterType<IProductManager, ProductManager>()
+                     .RegisterType<ITraderManager, TraderManager>();
+
         }
     }
 }

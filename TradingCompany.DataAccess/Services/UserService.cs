@@ -56,6 +56,16 @@ namespace TradingCompany.DataAccess.Services
             }
         }
 
+        public int GetId(string login)
+        {
+            using (var e = new DataContext())
+            {
+                var m = e.Users.SingleOrDefault(mm => mm.Login == login);
+                return m.Id;
+
+            }
+        }
+
         public UserDTO GetUser(int id)
         {
             using (var entities = new DataContext())
@@ -93,13 +103,15 @@ namespace TradingCompany.DataAccess.Services
                         FirstName = firstName,
                         LastName = lastName,
                         Password =encryptionHash.EncodePassword(password),
+                        //Role with id = 1 => 'User'
                         Role = _mapper.Map<Role>(roleService.GetRole(1)),
                         TimeOfCreating = DateTime.Now
 
                     };
+                    user = u;
                     entities.Users.Add(user);
                     entities.SaveChanges();
-                    user = u;
+                    
                 }
                 return user != null;
             }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
 using TradingCompany.DataAccess.Services;
@@ -18,24 +19,14 @@ namespace TradingCompany.App
 {
     public partial class AddForm : MaterialForm
     {
-        private static IMapper SetupMapper()
-        {
-            MapperConfiguration conf = new MapperConfiguration(
-                cfg => cfg.AddMaps(typeof(User).Assembly, typeof(Transaction).Assembly, typeof(Status).Assembly, typeof(Role).Assembly, typeof(Product).Assembly, typeof(Logs).Assembly, typeof(Category).Assembly)
-            );
 
-            return conf.CreateMapper();
-        }
-
-        ProductService productService = new ProductService(mapper);
-        LogsService logsService = new LogsService(mapper);
-
-        private static readonly IMapper mapper = SetupMapper();
+        IProductManager _productManager;
 
         public int Option;
         public ProductDTO SelectProduct { get; set; }
-        public AddForm(int option)
+        public AddForm(int option, IProductManager productManager)
         {
+            _productManager = productManager;
             Option = option;
             InitializeComponent();
         }
@@ -71,28 +62,26 @@ namespace TradingCompany.App
         private void button1_Click(object sender, EventArgs e)
         {
 
-            
+
             if (Option == 0)
             {
-                string name = textBox1.Text;
-                string price = textBox2.Text;
-                string category = textBox3.Text;
-                CategoryDTO category1 = new CategoryDTO() { Name = category };
-                string description = textBox4.Text;
-                string countInStock = textBox5.Text;
-                string timeOfAdd = DateTime.Now.ToString();
-                if (name != "" && price != "" && category != "" && description != "" && countInStock != "")
-                {
-                    ProductDTO product = new ProductDTO() { Name = name, Price = Convert.ToInt32(price), TimeOfAdd = Convert.ToDateTime(timeOfAdd), CountInStock = Convert.ToInt32(countInStock), Description = description, Category = category1 };
-                    if (product != new ProductDTO())
+                ProductDTO product = new ProductDTO() { 
+                    Name = textBox1.Text, 
+                    Price = Convert.ToInt32(textBox2.Text), 
+                    TimeOfAdd = DateTime.Now, 
+                    CountInStock = Convert.ToInt32(textBox5.Text),
+                    Description = textBox4.Text, 
+                    Category = new CategoryDTO()
                     {
-                        productService.Create(product);
-                        LogsDTO logs = new LogsDTO() { Name = "Add new product", Time = DateTime.Now };
-                        logsService.Create(logs);
+                        Name = textBox3.Text
                     }
-                }
+            };
+
+                _productManager.AddProduct(product);
+
+
             }
-            else if(Option == 1 && SelectProduct != null )
+            else if (Option == 1 && SelectProduct != null)
             {
                 string name = textBox1.Text;
                 string price = textBox2.Text;
@@ -104,11 +93,10 @@ namespace TradingCompany.App
 
                 if (name != "" && price != "" && category != "" && description != "" && countInStock != "")
                 {
-                    
-                    ProductDTO product= productService.GetAllProducts().Where(p => p.Name == name && p.Price == Convert.ToInt32(price) ).FirstOrDefault();
-                    int productID = product.Id;
-                    productService.Update( product);
-                   
+
+                    ProductDTO product = _productManager.GetListOfProducts().Where(p => p.Name == name && p.Price == Convert.ToInt32(price)).FirstOrDefault();
+                    _productManager.UpdateProduct(product);
+
                 }
 
             }

@@ -18,19 +18,24 @@ namespace TradingCompany.App
 
         //Services
         public ProductDTO selectedProduct;
-        private readonly ITraderManager _manager;
-        private List<ProductDTO> _products; 
-        private List<ProductDTO> _buyList;
-        UserDTO _currentUser;
+        private readonly ITraderManager _managerT;
+        private readonly IProductManager _managerP;
+        private List<ProductDTO> _products;
+        private readonly List<ProductDTO> _buyList;
+        private readonly UserDTO _currentUser;
 
         //-------------
 
         public string SearchString = "";
 
-        public Catalog(ITraderManager manager,UserDTO user)
+        public Catalog(ITraderManager managerT, IProductManager managerP, UserDTO user)
         {
-            _manager = manager;
+            
             InitializeComponent();
+            _managerT = managerT;
+            _managerP = managerP;
+            _buyList = new List<ProductDTO>();
+            _currentUser = _managerT.GetUserById(Program.Id);
             Update();
         }
 
@@ -40,7 +45,7 @@ namespace TradingCompany.App
             if (SearchString == "")
             {
                 dataGridView1.Rows.Clear();
-                _products = _manager.GetAllProduct();
+                _products = _managerT.GetAllProduct();
 
                 foreach (var p in _products)
                 {
@@ -50,7 +55,7 @@ namespace TradingCompany.App
             else
             {
                 dataGridView1.Rows.Clear();
-                _products = _manager.GetAllProduct();
+                _products = _managerT.GetAllProduct();
 
                 foreach (var p in _products.Where(p => p.Name.Contains(SearchString)))
                 {
@@ -91,18 +96,18 @@ namespace TradingCompany.App
                 var selectedRow = dataGridView1.Rows[selectedRowIndex];
                 var id = selectedRow.Cells["Column5"].Value.ToString();
                 selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
-                selectedProduct.CountInStock--;
-                _manager.BuyProduct(selectedProduct);
+                _managerT.BuyProduct(selectedProduct);
 
                 var transaction = new TransactionDTO()
                 {
                     Product = selectedProduct,
-                    Status = _manager.GetStatusTransaction(4),
+                    //Status 1=>Buy product
+                    Status = _managerT.GetStatusTransaction(1),
                     Time = DateTime.Now,
                     TimeOfChange = DateTime.Now,
                     User = _currentUser
                 };
-                _manager.AddTansaction(transaction);
+                _managerT.AddTansaction(transaction);
                 _buyList.Add(selectedProduct);
                 Update();
 
@@ -125,7 +130,7 @@ namespace TradingCompany.App
                 var selectedRow = dataGridView1.Rows[selectedRowIndex];
                 var id = selectedRow.Cells["Column5"].Value.ToString();
                 var selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
-                _manager.DeleteProduct(Convert.ToInt32(id));
+                _managerT.DeleteProduct(Convert.ToInt32(id));
             }
         }
 
@@ -143,17 +148,17 @@ namespace TradingCompany.App
                 var id = selectedRow.Cells["Column5"].Value.ToString();
                 var selectedProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
                 selectedProduct.CountInStock -= count;
-                _manager.BuyManyProducts(selectedProduct,count);
+                _managerT.BuyManyProducts(selectedProduct,count);
                 selectedProduct.Price *= count;
                 var transaction = new TransactionDTO()
                 {
                     Product = selectedProduct,
-                    Status = _manager.GetStatusTransaction(4),
+                    Status = _managerT.GetStatusTransaction(4),
                     Time = DateTime.Now,
                     TimeOfChange = DateTime.Now,
                     User = _currentUser
                 };
-                _manager.AddTansaction(transaction);
+                _managerT.AddTansaction(transaction);
 
                 _buyList.Add(selectedProduct);
                 Update();
@@ -162,7 +167,7 @@ namespace TradingCompany.App
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddForm addForm = new AddForm(0);
+            AddForm addForm = new AddForm(0, _managerP);
             addForm.ShowDialog();
             Update();
 
@@ -171,11 +176,14 @@ namespace TradingCompany.App
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddForm addForm = new AddForm(1);
+            AddForm addForm = new AddForm(1,_managerP);
+            
             var selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
             var selectedRow = dataGridView1.Rows[selectedRowIndex];
             var id = selectedRow.Cells["Column5"].Value.ToString();
+
             addForm.SelectProduct = _products.ToList().Find(u => u.Id == Convert.ToInt32(id));
+
             addForm.ShowDialog();
             Update();
         }
