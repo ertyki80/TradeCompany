@@ -96,20 +96,10 @@ namespace TradingCompany.App
                 selectedProduct = _products.ToList().Where(u => u.Id == Convert.ToInt32(id)).First();
                 _managerT.BuyProduct(selectedProduct);
 
-                //var transaction = new TransactionDTO()
-                //{
-                //    Product = selectedProduct,
-                //    //Status 1=>Buy product
-                //    Status = _managerT.GetStatusTransaction(1008),
-                //    Time = DateTime.Now,
-                //    TimeOfChange = DateTime.Now,
-                //    User = _currentUser
-                //};
-                //_managerT.AddTansaction(transaction);
 
                 _buyList.Add(selectedProduct);
                 Update();
-
+                this.Close();
 
             }
 
@@ -149,19 +139,11 @@ namespace TradingCompany.App
                 selectedProduct.CountInStock -= count;
                 _managerT.BuyManyProducts(selectedProduct,count);
                 selectedProduct.Price *= count;
-                //var transaction = new TransactionDTO()
-                //{
-                //    Product = selectedProduct,
-                //    Status = _managerT.GetStatusTransaction(4),
-                //    Time = DateTime.Now,
-                //    TimeOfChange = DateTime.Now,
-                //    User = _currentUser
-                //};
-                //_managerT.AddTansaction(transaction);
-
+                
                 _buyList.Add(selectedProduct);
                 Update();
             }
+            this.Close();
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -185,6 +167,7 @@ namespace TradingCompany.App
 
             addForm.ShowDialog();
             Update();
+
         }
     }
 }

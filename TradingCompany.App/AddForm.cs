@@ -74,7 +74,7 @@ namespace TradingCompany.App
                 };
 
                 _productManager.AddProduct(product);
-
+                this.Close();
 
             }
             else if (Option == 1 && SelectProduct != null)
@@ -98,6 +98,7 @@ namespace TradingCompany.App
                     };
 
                     _productManager.AddProduct(product);
+                    this.Close();
                 }
 
             }
