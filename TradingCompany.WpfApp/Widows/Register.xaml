@@ -22,7 +22,6 @@
         <Label FontWeight="ExtraLight" Content="Login" Margin="44,75,219,421"/>
         <Label FontWeight="ExtraLight" Content="Password" Margin="44,146,264,359"/>
         <Button FontWeight="ExtraLight" Content="Register" Style="{DynamicResource MaterialDesignFlatLightBgButton}" HorizontalAlignment="Left" Height="37" Margin="228,481,0,0" VerticalAlignment="Top" Width="93" Click="Button_Click_2"/>
-
         <Label FontWeight="ExtraLight" Content="Register" FontSize="22" HorizontalAlignment="Center" Margin="181,10,174,0" Width="87" Height="41" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox1_Copy1"  Style="{DynamicResource MaterialDesignTextBox}" BorderBrush="ForestGreen" FontSize="18"  Margin="44,230,31,271" />
         <Label FontWeight="ExtraLight" Content="Email" Height="30" Margin="44,200,264,300"/>
@@ -31,7 +30,7 @@
         <TextBox x:Name="textBox1_Copy3"  Style="{DynamicResource MaterialDesignTextBox}" BorderBrush="ForestGreen" FontSize="18"  Margin="44,361,31,140" />
         <Label FontWeight="ExtraLight" Content="Last Name" Height="30" Margin="44,331,264,169"/>
         <Label FontWeight="ExtraLight" Content="Date of birth" Height="30" Margin="44,395,264,105"/>
-        <materialDesign:TimePicker HorizontalAlignment="Left" Margin="44,425,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="367">
+        <materialDesign:TimePicker x:Name="timePicker" HorizontalAlignment="Left" Margin="44,425,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="367">
 
         </materialDesign:TimePicker>
     </Grid>

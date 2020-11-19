@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TradingCompany.BusinessLogic.Concrete;
+using TradingCompany.DataAccess.Models;
+using TradingCompanyDataTransfer;
+using Unity.Injection;
+using Unity;
+using Unity.Resolution;
 
 namespace TradingCompany.WpfApp
 {
@@ -20,9 +26,19 @@ namespace TradingCompany.WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        int Id;
+        List<ProductDTO> products;
         public MainWindow()
         {
+
+            Id = App.Id;
             InitializeComponent();
+            Update();
+        }
+        void Update()
+        {
+            dataGrid.ItemsSource = products;
+
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -32,8 +48,11 @@ namespace TradingCompany.WpfApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Catalog catalog = new Catalog();
+            Catalog catalog = App.Container.Resolve<Catalog>();
             catalog.ShowDialog();
+            Update();
+
+
         }
     }
 }

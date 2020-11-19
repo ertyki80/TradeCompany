@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Interfaces;
@@ -47,6 +46,7 @@ namespace TradingCompany.DataAccess.Services
         public List<ProductDTO> GetAllProducts()
         {
             using (var e = new DataContext())
+
             {
                 return _mapper.Map<List<ProductDTO>>(e.Products.ToList());
 

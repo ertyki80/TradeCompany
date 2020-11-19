@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TradingCompany.BusinessLogic;
 
 namespace TradingCompany.WpfApp
 {
@@ -19,8 +21,11 @@ namespace TradingCompany.WpfApp
     /// </summary>
     public partial class Register : Window
     {
-        public Register()
+        AuthManager _authManager;
+        public int Id;
+        public Register(AuthManager authManager)
         {
+            _authManager = authManager;
             InitializeComponent();
         }
 
@@ -58,8 +63,21 @@ namespace TradingCompany.WpfApp
             {
                 textBox1_Copy3.BorderBrush = Brushes.Red;
             }
-            string login = textBox1.Text;
-            string password = textBox1_Copy.Text;
+            try
+            {
+                if (_authManager.Registration(textBox1.Text, textBox1_Copy.Text, textBox1_Copy2.Text, textBox1_Copy3.Text, timePicker.SelectedTime.GetValueOrDefault(), textBox1_Copy1.Text))
+                {
+                    Id = _authManager.GetId(textBox1.Text);
+
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message); 
+            }
+
+
+
+
         }
     }
 }

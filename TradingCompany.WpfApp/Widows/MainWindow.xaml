@@ -43,7 +43,7 @@
                 <StackPanel Orientation="Vertical" Background="White" MinWidth="30" Width="878"  >
 
                     <Label Background="White" FontWeight="Light" FontSize="27"  Content="Buy List:" />
-                    <DataGrid Background="White" HorizontalAlignment="Left" Height="412"  Width="878" >
+                    <DataGrid x:Name="dataGrid" Background="White" HorizontalAlignment="Left" Height="412"  Width="878" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" />
                             <DataGridTextColumn Header="Price"/>

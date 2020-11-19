@@ -85,7 +85,7 @@ namespace TradingCompany.DataAccess.Services
         {
             using (var ent = new DataContext())
             {
-                User user = _mapper.Map<User>(ent.Users.FirstOrDefault(u => u.Login == username));
+                UserDTO user = _mapper.Map<UserDTO>(ent.Users.FirstOrDefault(u => u.Login == username));
                 EncryptionHash encryptionHash = new EncryptionHash();
                 return user != null && user.Password.SequenceEqual(encryptionHash.EncodePassword(password));
             }
