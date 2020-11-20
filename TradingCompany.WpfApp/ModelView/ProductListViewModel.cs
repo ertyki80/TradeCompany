@@ -1,8 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using TradingCompany.BusinessLogic.Concrete;
 using TradingCompany.BusinessLogic.Interfaces;
-using TradingCompany.DataAccess.Services;
 using TradingCompanyDataTransfer;
 
 namespace TradingCompany.WpfApp.ModelView
@@ -23,7 +20,6 @@ namespace TradingCompany.WpfApp.ModelView
         }
         public ProductListViewModel(ITraderManager traderManager)
         {
-           
             _manager = traderManager;
             Update();
         }
@@ -33,6 +29,22 @@ namespace TradingCompany.WpfApp.ModelView
             var products = _manager.GetAllProduct();
             ProductList = new ObservableCollection<ProductDTO>(products);
         }
+
+        public void Delete(ProductDTO product)
+        {
+            _manager.DeleteProduct(product.Id);
+            Update();
+        }
+        
+        public ProductDTO Buy(ProductDTO product)
+        {
+            product.CountInStock--;
+            _manager.BuyProduct(product);
+            Update();
+            return product;
+
+        }
+
 
     }
 }

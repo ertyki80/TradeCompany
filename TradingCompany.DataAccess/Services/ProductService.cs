@@ -31,13 +31,11 @@ namespace TradingCompany.DataAccess.Services
         {
             using (var entities = new DataContext())
             {
-                Product m = entities.Products.SingleOrDefault(mm => mm.Id == id);
+                Product m = entities.Products.Where(mm => mm.Id == id).FirstOrDefault();
                 if (m == null)
                 {
                     return;
                 }
-                List<Transaction> transactions = entities.Transactions.Where(t => t.Product.Id == id).ToList();
-                entities.Transactions.RemoveRange(transactions);
                 entities.Products.Remove(m);
                 entities.SaveChanges();
             }
@@ -48,7 +46,8 @@ namespace TradingCompany.DataAccess.Services
             using (var e = new DataContext())
 
             {
-                return _mapper.Map<List<ProductDTO>>(e.Products.ToList());
+                var l = e.Products.ToList();
+                return _mapper.Map<List<ProductDTO>>(l);
 
             }
         }

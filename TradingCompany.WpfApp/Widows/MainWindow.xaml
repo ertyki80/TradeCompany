@@ -33,24 +33,17 @@
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" Grid.RowSpan="5" Height="524" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" Background="White" MinWidth="30" Height="461" >
-                <StackPanel  Orientation="Vertical" Background="White" MinWidth="30" Width="195" Height="461" >
-                    <Label Background="LightCyan" FontWeight="Light" FontSize="17" Height="35"  Content="Name" ></Label>
+                <StackPanel  Orientation="Vertical" Background="White" MinWidth="30" Width="208" Height="461" >
+                    <Label x:Name="nameProp"    Background="LightCyan" FontWeight="Light" FontSize="17" Height="35"  Content="Name" ></Label>
                     <Label Background="LightCyan" FontWeight="Light" FontSize="17" Height="35" ></Label>
-                    <Label Background="LightCyan" FontWeight="Light" FontSize="17" Height="35" Content="Email" ></Label>
+                    <Label x:Name="emailProp"  Background="LightCyan" FontWeight="Light" FontSize="17" Height="35" Content="Email" ></Label>
                     <Label Background="LightCyan" FontWeight="Light" FontSize="17" Height="35" ></Label>
                     <Button  FontWeight="Light" Style="{DynamicResource MaterialDesignFlatLightBgButton}" FontSize="17"  Height="35" Content="Catalog" Click="Button_Click" />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Background="White" MinWidth="30" Width="878"  >
 
-                    <Label Background="White" FontWeight="Light" FontSize="27"  Content="Buy List:" />
+                    <Label Background="White" FontWeight="Light" FontSize="27"  Content="Buy List   :" />
                     <DataGrid x:Name="dataGrid" Background="White" HorizontalAlignment="Left" Height="412"  Width="878" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" />
-                            <DataGridTextColumn Header="Price"/>
-                            <DataGridTextColumn Header="Description"/>
-                            <DataGridTextColumn Header="Count of stock"/>
-                            <DataGridTextColumn Header="Time of add"/>
-                        </DataGrid.Columns>
                     </DataGrid>
 
                 </StackPanel>
@@ -58,7 +51,9 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="58" Background="Gray" RenderTransformOrigin="0.5,0.5"  >
                 <Label Content="Виконав: Іван Кіхтан"  Height="29" Margin="0,0,0,-3"  />
-                <Button x:Name="button1"  Content="Help"  Height="24" Width ="60"  Margin="865,4,1,1" Click="button1_Click"   />
+
+                <Label x:Name="total"  Content="Сума до сплати"  Height="29" Margin="340,0,0,-3"  />
+                <Button x:Name="button1"  Content="Help"  Height="24" Width ="60"  Margin="430,4,1,1" Click="button1_Click"   />
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -18,6 +18,7 @@ using TradingCompanyDataTransfer;
 using Unity.Injection;
 using Unity;
 using Unity.Resolution;
+using TradingCompany.BusinessLogic.Interfaces;
 
 namespace TradingCompany.WpfApp
 {
@@ -28,11 +29,17 @@ namespace TradingCompany.WpfApp
     {
         int Id;
         List<ProductDTO> products;
-        public MainWindow()
+        ITraderManager _tradeManager;
+        public MainWindow(ITraderManager traderManager)
         {
-
-            Id = App.Id;
+            products = new List<ProductDTO>();
             InitializeComponent();
+            _tradeManager = traderManager;
+            Id = App.Id;
+            UserDTO currentUser = _tradeManager.GetUserById(Id);
+            nameProp.Content = "Name: " + currentUser.FirstName + " " + currentUser.LastName;
+            emailProp.Content = "Email:"+ currentUser.Email;
+            
             Update();
         }
         void Update()
@@ -50,6 +57,14 @@ namespace TradingCompany.WpfApp
         {
             Catalog catalog = App.Container.Resolve<Catalog>();
             catalog.ShowDialog();
+            products.AddRange(catalog.BuyList);
+
+            int sum = 0;
+            foreach (var i in  products){
+                sum += i.Price;
+            }
+            total.Content = "Сума до сплати: " + sum.ToString();
+            dataGrid.Items.Refresh();
             Update();
 
 

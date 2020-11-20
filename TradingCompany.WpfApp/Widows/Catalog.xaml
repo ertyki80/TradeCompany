@@ -23,15 +23,16 @@
         <StackPanel Orientation="Vertical" Grid.ColumnSpan="3" Height="573" VerticalAlignment="Top"   >
             <Menu Background="White" >
                 <MenuItem Background="White" Header="Menu">
-                    <MenuItem Background="White" Header="Add"></MenuItem>
-                    <MenuItem Background="White" Header="Edit"></MenuItem>
-                    <MenuItem Background="White" Header="Exit"></MenuItem>
+                    <MenuItem Background="White" Header="Add" Click="MenuItem_Click_2"></MenuItem>
+                    <MenuItem Background="White" Header="Edit" Click="MenuItem_Click_1"></MenuItem >
+                    <MenuItem Background="White" Header="Delete" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Background="White" Header="Exit" Click="MenuItem_Click_3"></MenuItem>
                 </MenuItem>
             </Menu>
             <StackPanel Orientation="Vertical" Background="White" Width="1068"  >
 
                 <Label Background="White" FontWeight="Light" FontSize="27"  Content="Catalog:" />
-                <DataGrid x:Name="dataGrid" Background="White" HorizontalAlignment="Left" Height="412"  Width="1077" Margin="0,0,0,0"  ItemsSource="{Binding Source={StaticResource ProductCollection}}" >
+                <DataGrid IsReadOnly="True" CanUserAddRows="False"  x:Name="dataGrid" Background="White" HorizontalAlignment="Left" Height="412"  Width="1077" Margin="0,0,0,0"  ItemsSource="{Binding Source={StaticResource ProductCollection}}" >
                     <DataGrid.Columns>
                         
                     </DataGrid.Columns>
@@ -40,7 +41,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Background="WhiteSmoke" Height="94" >
                 <Label Content="Виконав: Іван Кіхтан"  Height="29"   Margin="0,10,1,49"   />
-                <Button x:Name ="button1" Content="Buy" Margin="400,12,1,50" Width="85" />
+                <Button x:Name ="button1" Content="Buy" Margin="400,12,1,50" Width="85" Click="button1_Click"/>
                 <Button x:Name="button2"  Content="Help" Width ="83"  Margin="370,10,1,49"  />
 
             </StackPanel>

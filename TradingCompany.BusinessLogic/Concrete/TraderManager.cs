@@ -15,8 +15,10 @@ namespace TradingCompany.BusinessLogic.Concrete
         private readonly ITransactionService _transactionService;
         private readonly IUserService _userService;
         private readonly IStatusService _statusService;
-        public TraderManager(IProductService productService, ITransactionService transactionService, IUserService userService, IStatusService statusService)
+        private readonly ICategoryService _categoryService;
+        public TraderManager(ICategoryService categoryService,IProductService productService, ITransactionService transactionService, IUserService userService, IStatusService statusService)
         {
+            _categoryService = categoryService;
             _productService = productService;
             _transactionService = transactionService;
             _userService = userService;
@@ -36,9 +38,7 @@ namespace TradingCompany.BusinessLogic.Concrete
 
         public void BuyProduct(ProductDTO product)
         {
-            _productService.Delete(product. Id);
-            product.CountInStock--;
-            _productService.Create(product);
+            _productService.Update(product);
         }
 
         public void DeleteProduct(int id)
@@ -49,6 +49,11 @@ namespace TradingCompany.BusinessLogic.Concrete
         public void DeleteTransaction(int transactionID)
         {
             _transactionService.Delete(transactionID);
+        }
+
+        public List<CategoryDTO> GetAllCategories()
+        {
+            return _categoryService.GetAllCategory();
         }
 
         public List<ProductDTO> GetAllProduct()

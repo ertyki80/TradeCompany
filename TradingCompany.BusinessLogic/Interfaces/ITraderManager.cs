@@ -12,6 +12,7 @@ namespace TradingCompany.BusinessLogic.Interfaces
         TransactionDTO AddTansaction(TransactionDTO transaction);
         List<TransactionDTO> GetAllTransaction();
         List<ProductDTO> GetAllProduct();
+        List<CategoryDTO> GetAllCategories();
         TransactionDTO UpdateTransaction(int id,TransactionDTO transaction);
         void DeleteTransaction(int transactionID);
         void BuyProduct(ProductDTO product);

@@ -37,6 +37,7 @@ namespace TradingCompany.WpfApp
 
             if (lf.DialogResult == true)
             {
+                Id = lf.Id;
                 MainWindow ml = Container.Resolve<MainWindow>();
                 Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 Current.MainWindow = ml;
