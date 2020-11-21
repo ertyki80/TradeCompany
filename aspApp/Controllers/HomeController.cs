@@ -5,19 +5,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TradingCompany.BusinessLogic.Interfaces;
 
 namespace aspApp.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult ProductsList()
-        {
-            return View();
-        }
+      
 
         public IActionResult About()
         {
