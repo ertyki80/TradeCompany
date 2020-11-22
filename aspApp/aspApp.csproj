@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TradingCompany.BusinessLogic\TradingCompany.BusinessLogic.csproj" />
+    <ProjectReference Include="..\TradingCompanyDataTransfer\TradingCompanyDataTransfer.csproj" />
   </ItemGroup>
 
 </Project>
