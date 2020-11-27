@@ -28,6 +28,7 @@
                     <MenuItem Background="White" Header="Delete" Click="MenuItem_Click"></MenuItem>
                     <MenuItem Background="White" Header="Exit" Click="MenuItem_Click_3"></MenuItem>
                 </MenuItem>
+                <Button Opacity="0.4" Background="Black" Content="Transaction" Click="transactionView"/>
             </Menu>
             <StackPanel Orientation="Vertical" Background="White" Width="1068"  >
 

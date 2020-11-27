@@ -6,7 +6,7 @@ namespace TradingCompany.DataAccess.Context
     public class DataContext:DbContext
     {
         public DataContext()
-           : base("DBConnection")
+           : base("strLocaLDB")
         { }
 
         public DbSet<User> Users { get; set; }

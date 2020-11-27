@@ -57,7 +57,7 @@ namespace aspApp.Controllers
             var u = new RegisterViewModel();
             // if (model.Login != null || model.Password != null || model.RoleDTO != null || model.LastName != null || model.FirstName != null || model.Email != null)
 
-            if (u == model) 
+            if (u != model) 
             {
                 var register = _managerA.Registration(model.Login, model.Password, model.FirstName, model.LastName, model.DateOfBirth, model.Email);
 

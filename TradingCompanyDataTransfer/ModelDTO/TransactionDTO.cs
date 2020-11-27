@@ -10,13 +10,13 @@ namespace TradingCompanyDataTransfer
     {
         public int Id { get; set; }
 
-        public ProductDTO Product { get; set; }
+        public string Product { get; set; }
 
-        public UserDTO User { get; set; }
+        public string User { get; set; }
 
         public DateTime Time { get; set; }
 
-        public StatusDTO Status { get; set; }
+        public string Status { get; set; }
 
         public DateTime TimeOfChange { get; set; }
 

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using TradingCompany.BusinessLogic.Extensions;
-using TradingCompany.BusinessLogic.Helpers;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Models;
 using TradingCompany.DataAccess.Services;
@@ -61,8 +60,6 @@ namespace TradingCompany.ConsoleApp
                     string dateOfBirth = Console.ReadLine();
                     Console.WriteLine("Email");
                     string email = Console.ReadLine();
-                    AutorizeLogic authorizeLogic = new AutorizeLogic();
-                    authorizeLogic.Registration(login, password, role, firstName, lastName,Convert.ToDateTime(dateOfBirth), email);
                     return true;
                 case "2":
                     Console.Clear();
@@ -194,7 +191,7 @@ namespace TradingCompany.ConsoleApp
                     int id;
                     id = Convert.ToInt32(Console.ReadLine());
                     product = new ProductDTO() { Category = category_, CountInStock = countOfStock, Description = description, Name = name, Price = price, TimeOfAdd = TimeofAdd };
-                    productService.Update(id, product);
+                    productService.Update( product);
 
                     return true;
 

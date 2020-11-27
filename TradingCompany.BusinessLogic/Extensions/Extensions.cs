@@ -50,7 +50,7 @@ namespace TradingCompany.BusinessLogic.Extensions
         public string ToString(TransactionDTO transaction)
         {
             string str;
-            str = string.Format("{0}. {1} {2} {3} {4} {5}", transaction.Id, transaction.Product.Name,transaction.Product.Price,transaction.User.FirstName,transaction.Status.Name,transaction.Time);
+            str = string.Format("{0}. {1} {2} {3} {4} ", transaction.Id, transaction.Product,transaction.User,transaction.Status,transaction.Time);
             return str;
 
         }

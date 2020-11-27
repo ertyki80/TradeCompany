@@ -68,6 +68,18 @@ namespace TradingCompany.WpfApp.Widows
             var category = _managerT.GetAllCategories().Where(c => c.Name == categoryName).FirstOrDefault();
             product.Category = category;
             _managerP.UpdateProduct(product);
+
+            UserDTO cUser = _managerT.GetUserById(App.Id);
+            TransactionDTO transaction = new TransactionDTO()
+            {
+                Product = product.Name,
+
+                User = cUser.FirstName + " " + cUser.LastName,
+                Status = "AddProduct",
+                Time = DateTime.Now,
+                TimeOfChange = DateTime.Now
+            };
+            _managerT.AddTansaction(transaction);
         }
     }
 }

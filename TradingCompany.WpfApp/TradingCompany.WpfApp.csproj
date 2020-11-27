@@ -102,12 +102,16 @@
     </ApplicationDefinition>
     <Compile Include="ModelView\LoginViewModel.cs" />
     <Compile Include="ModelView\ProductListViewModel.cs" />
+    <Compile Include="ModelView\TransactionViewModel.cs" />
     <Compile Include="Model\SelectableOption.cs" />
     <Compile Include="Widows\AddProduct.xaml.cs">
       <DependentUpon>AddProduct.xaml</DependentUpon>
     </Compile>
     <Compile Include="Widows\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widows\Transactions.xaml.cs">
+      <DependentUpon>Transactions.xaml</DependentUpon>
     </Compile>
     <Page Include="Widows\AddProduct.xaml">
       <SubType>Designer</SubType>
@@ -142,6 +146,10 @@
     <Page Include="Widows\Register.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widows\Transactions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Data;
+using TradingCompany.BusinessLogic.Interfaces;
+using TradingCompany.DataAccess.Models;
 using TradingCompany.WpfApp.ModelView;
 using TradingCompany.WpfApp.Widows;
 using TradingCompanyDataTransfer;
@@ -50,6 +53,18 @@ namespace TradingCompany.WpfApp
             AddProduct addProduct = App.Container.Resolve<AddProduct>();
             addProduct.AddParrameters(product.Id,product.Name, product.Price, product.Description, product.CountInStock);
             addProduct.ShowDialog();
+            ITraderManager manager = App.Container.Resolve<ITraderManager>();
+            UserDTO cUser = manager.GetUserById(App.Id);
+            TransactionDTO transaction = new TransactionDTO()
+            {
+                Product = product.Name,
+
+                User = cUser.FirstName + " " + cUser.LastName,
+                Status = "Edit",
+                Time = DateTime.Now,
+                TimeOfChange = DateTime.Now
+            };
+            manager.AddTansaction(transaction);
             dataGrid.Items.Refresh();
         }
 
@@ -63,6 +78,12 @@ namespace TradingCompany.WpfApp
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void transactionView(object sender, RoutedEventArgs e)
+        {
+            Widows.Transactions transaction = App.Container.Resolve<Widows.Transactions>();
+            transaction.ShowDialog();
         }
     }
 }
