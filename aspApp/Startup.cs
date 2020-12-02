@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using aspApp.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,7 @@ using TradingCompany.BusinessLogic.Interfaces;
 using TradingCompany.DataAccess.Context;
 using TradingCompany.DataAccess.Interfaces;
 using TradingCompany.DataAccess.Services;
+using TradingCompanyDataTransfer;
 
 namespace aspApp
 {
@@ -51,6 +53,7 @@ namespace aspApp
                      .AddTransient<IAuthManager, AuthManager>()
                      .AddTransient<IProductManager, ProductManager>()
                      .AddTransient<ITraderManager, TraderManager>();
+                     
 
             MapperConfiguration config = new MapperConfiguration(
                cfg =>

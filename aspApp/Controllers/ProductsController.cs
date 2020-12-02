@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using aspApp.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,43 +13,59 @@ namespace aspApp.Controllers
 {
     public class ProductsController : Controller
     {
-
+        IMapper mapper;
         ITraderManager _managerT;
         IProductManager _managerP;
         public ProductsController(ITraderManager traderManager, IProductManager productManager)
         {
-            _managerT = traderManager;
-            _managerP = productManager;
+            if (LoginController.active)
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<ProductDTO, ProductViewModel>().ReverseMap());
+                mapper = new Mapper(config);
+
+
+                _managerT = traderManager;
+                _managerP = productManager;
+            }
+            else
+            {
+                 Redirect("../Login/Index");
+            }
         }
         // GET: ProductsController
         public ActionResult Index()
         {
-            var products = _managerT.GetAllProduct();
-            return View(products);
+            if (LoginController.active)
+            {
+                var products = _managerT.GetAllProduct();
+                return View(products);
+            }
+
+            return View("../Login/Index",new LoginViewModel());
         }
 
         // GET: ProductsController/Details/5
         public ActionResult Details(int id)
         {
-            var product = _managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault();
+            ProductViewModel product = mapper.Map<ProductViewModel>(_managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
             return View(product);
         }
 
         // GET: ProductsController/Create
         public ActionResult Create()
         {
-            ProductDTO p = new ProductDTO();
+            var p = new ProductViewModel();
             return View(p);
         }
 
         // POST: ProductsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductDTO product)
+        public ActionResult Create(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
-                _managerP.AddProduct(product);
+                ProductDTO productDTO = _managerP.AddProduct(mapper.Map<ProductDTO>(product));
                 return RedirectToAction(nameof(Index));
             }
             
@@ -59,18 +77,18 @@ namespace aspApp.Controllers
         public ActionResult Edit(int id)
         {
 
-            var product = _managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault();
+            var product = mapper.Map < ProductViewModel > (_managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
             return View(product);
         }
 
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProductDTO product)
+        public ActionResult Edit(ProductViewModel product)
         {
             if(ModelState.IsValid)
             {
-                _managerP.UpdateProduct(product);
+                _managerP.UpdateProduct(mapper.Map < ProductDTO > (product));
                 return RedirectToAction(nameof(Index));
             }
             
@@ -81,7 +99,7 @@ namespace aspApp.Controllers
         // GET: ProductsController/Delete/5
         public ActionResult Delete(int id)
         {
-            var product = _managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault();
+            var product = mapper.Map < ProductViewModel >( _managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
             return View(product);
         }
 
