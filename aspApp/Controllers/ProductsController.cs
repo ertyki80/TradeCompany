@@ -47,15 +47,24 @@ namespace aspApp.Controllers
         // GET: ProductsController/Details/5
         public ActionResult Details(int id)
         {
-            ProductViewModel product = mapper.Map<ProductViewModel>(_managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
-            return View(product);
+            if (LoginController.active)
+            {
+                ProductViewModel product = mapper.Map<ProductViewModel>(_managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
+                return View(product);
+            }
+
+            return View("../Login/Index", new LoginViewModel());
         }
 
         // GET: ProductsController/Create
         public ActionResult Create()
         {
-            var p = new ProductViewModel();
-            return View(p);
+            if (LoginController.active)
+            {
+                var p = new ProductViewModel();
+                return View(p);
+            }
+            return View("../Login/Index", new LoginViewModel());
         }
 
         // POST: ProductsController/Create
@@ -63,22 +72,29 @@ namespace aspApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel product)
         {
-            if (ModelState.IsValid)
+            if (LoginController.active)
             {
-                ProductDTO productDTO = _managerP.AddProduct(mapper.Map<ProductDTO>(product));
-                return RedirectToAction(nameof(Index));
-            }
-            
+                if (ModelState.IsValid)
+                {
+                    ProductDTO productDTO = _managerP.AddProduct(mapper.Map<ProductDTO>(product));
+                    return RedirectToAction(nameof(Index));
+                }
+
                 return View();
-            
+            }
+            return View("../Login/Index", new LoginViewModel());
+
         }
 
         // GET: ProductsController/Edit/5
         public ActionResult Edit(int id)
         {
-
-            var product = mapper.Map < ProductViewModel > (_managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
+            if (LoginController.active)
+            {
+                var product = mapper.Map < ProductViewModel > (_managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
             return View(product);
+            }
+            return View("../Login/Index", new LoginViewModel());
         }
 
         // POST: ProductsController/Edit/5
@@ -86,21 +102,29 @@ namespace aspApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProductViewModel product)
         {
-            if(ModelState.IsValid)
+            if (LoginController.active)
             {
-                _managerP.UpdateProduct(mapper.Map < ProductDTO > (product));
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _managerP.UpdateProduct(mapper.Map<ProductDTO>(product));
+                    return RedirectToAction(nameof(Index));
+                }
+            
+                return View(product);
             }
-            
-            return View(product);
-            
+            return View("../Login/Index", new LoginViewModel());
         }
 
         // GET: ProductsController/Delete/5
         public ActionResult Delete(int id)
         {
-            var product = mapper.Map < ProductViewModel >( _managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
-            return View(product);
+            if (LoginController.active)
+            {
+                var product = mapper.Map<ProductViewModel>(_managerT.GetAllProduct().Where(p => p.Id == id).FirstOrDefault());
+                return View(product);
+            }
+
+            return View("../Login/Index", new LoginViewModel());
         }
 
         // POST: ProductsController/Delete/5
@@ -108,15 +132,19 @@ namespace aspApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(ProductDTO product)
         {
-            try
+            if (LoginController.active)
             {
-                _managerP.DeleteProduct(product.Id);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _managerP.DeleteProduct(product.Id);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View("../Login/Index", new LoginViewModel());
         }
     }
 }
